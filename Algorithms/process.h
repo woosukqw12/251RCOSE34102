@@ -19,8 +19,3 @@ typedef struct {
     int start;
     int end;
 } time_stamp;
-
-typedef struct{
-    int PID;
-    int count;
-} vector;

@@ -23,7 +23,6 @@ void PreemptiveSJF(process *p, int len)
 	
 	for (int i=0; i<len; i++) burst_time_record[i] = job_queue[i].CPU_burst_time;
 
-    
 	job_queue = SORT_by_arrival_and_burst(job_queue, len);
 	
 
@@ -45,7 +44,7 @@ void PreemptiveSJF(process *p, int len)
 		//CPU processing
 		if (NoP_in_RQ > 0) {
 			ready_queue[0].CPU_burst_time--; //FCFS
-			printf("PID:%d, remaining_burst: %d, waiting time: %d\n", ready_queue[0].PID, ready_queue[0].CPU_burst_time,ready_queue[0].waiting_time);
+			// printf("PID:%d, remaining_burst: %d, waiting time: %d\n", ready_queue[0].PID, ready_queue[0].CPU_burst_time,ready_queue[0].waiting_time);
 
 			//Gantt chart append
 			sprintf(&gantt_record[TotalTime], "%d", ready_queue[0].PID); 
@@ -71,8 +70,8 @@ void PreemptiveSJF(process *p, int len)
 		total_turnaround_time = total_turnaround_time + terminated_queue[idx].turnaround_time;
 	}
 
-	printf("\n\tRR Scheduling Algorithm\n\n");
-	print_gantt_chart_RR(gantt_record, len, TotalTime);
+	printf("\n\tPreemptive SJF Scheduling Algorithm\n\n");
+	print_gantt_chart(gantt_record, len, TotalTime);
 
 	/* 평균 대기시간, 턴어라운드 타임, 응답 시간 출력 */
 	printf("\n\tAverage Waiting Time     : %-2.2lf\n", (double)total_waiting_time / (double)len);

@@ -71,8 +71,8 @@ void PreemptivePriority(process *p, int len)
 		total_turnaround_time = total_turnaround_time + terminated_queue[idx].turnaround_time;
 	}
 
-	printf("\n\tPreemptivePriority Scheduling Algorithm\n\n");
-	print_gantt_chart_RR(gantt_record, len, TotalTime);
+	printf("\n\tPreemptive Priority Scheduling Algorithm\n\n");
+	print_gantt_chart(gantt_record, len, TotalTime);
 
 	/* 평균 대기시간, 턴어라운드 타임, 응답 시간 출력 */
 	printf("\n\tAverage Waiting Time     : %-2.2lf\n", (double)total_waiting_time / (double)len);

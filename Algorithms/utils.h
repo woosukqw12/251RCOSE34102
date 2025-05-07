@@ -98,7 +98,7 @@ process* SORT_by_arrival_and_priority(process *p, int len){
 
 
 
-void print_gantt_chart_(char* gantt_record, int len, int total_terminated_time){
+void print_gantt_chart(char* gantt_record, int len, int total_terminated_time){
 	for (int i=0; i<total_terminated_time; i++){
 		printf("%c", gantt_record[i]);
 	}

@@ -31,11 +31,11 @@ void Schedule(void){
     // }
 
     
-    // FCFS(p1, NUM);
-    // SJF(p2, NUM);
-    // Priority(p3, NUM);
-    // RR(p4, NUM);
-    // PreemptiveSJF(p5, NUM);
+    FCFS(p1, NUM);
+    SJF(p2, NUM);
+    Priority(p3, NUM);
+    RR(p4, NUM);
+    PreemptiveSJF(p5, NUM);
     PreemptivePriority(p6, NUM);
     
 }

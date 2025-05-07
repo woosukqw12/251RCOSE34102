@@ -4,31 +4,6 @@
 
 #define TimeQuantum 4
 
-// #include "SchedulerSimulator.c"
-process* SORT_by_arrival_RR(process *p, int len){
-    process temp;
-
-    //bubble sort
-    for (int iter=0; iter<len-1; iter++){
-        for (int idx=0; idx<len-1; idx++){
-            if (p[idx].arrival_time > p[idx+1].arrival_time){
-                temp = p[idx];
-                p[idx] = p[idx+1];
-                p[idx+1] = temp;
-            }
-        }
-    }
-	return p;
-}
-
-void print_gantt_chart_RR(char* gantt_record, int len, int total_terminated_time){
-	for (int i=0; i<total_terminated_time; i++){
-		printf("%c", gantt_record[i]);
-	}
-	printf("\n");
-}
-
-
 void RR(process *p, int len)
 {
 	//init
@@ -50,7 +25,7 @@ void RR(process *p, int len)
 	for (int i=0; i<len; i++) burst_time_record[i] = job_queue[i].CPU_burst_time;
 
 	
-	job_queue = SORT_by_arrival_RR(job_queue, len);
+	job_queue = SORT_by_arrival(job_queue, len);
 	
 
 	printf("------------------------------------------------------------\n");
@@ -111,7 +86,7 @@ void RR(process *p, int len)
 	}
 
 	printf("\n\tRR Scheduling Algorithm\n\n");
-	print_gantt_chart_RR(gantt_record, len, TotalTime);
+	print_gantt_chart(gantt_record, len, TotalTime);
 
 	/* 평균 대기시간, 턴어라운드 타임, 응답 시간 출력 */
 	printf("\n\tAverage Waiting Time     : %-2.2lf\n", (double)total_waiting_time / (double)len);

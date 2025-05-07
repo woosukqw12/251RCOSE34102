@@ -1,0 +1,93 @@
+------------------------------------------------------------
+[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
+[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
+[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
+[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
+[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
+
+	FCFS Scheduling Algorithm
+
+3	0	20
+4	20	27
+0	27	34
+1	34	50
+2	50	52
+3333333333333333333344444440000000111111111111111122X
+0                  20     27     34              5052
+	Average Waiting Time     : 25.60
+	Average Turnaround Time  : 36.00
+------------------------------------------------------------
+[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
+[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
+[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
+[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
+[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
+
+	NonpreemptiveSJF Scheduling Algorithm
+
+4	0	7
+2	7	9
+0	9	16
+1	16	32
+3	32	52
+4444444220000000111111111111111133333333333333333333X
+0     79     16              32                  52
+	Average Waiting Time     : 12.20
+	Average Turnaround Time  : 22.60
+------------------------------------------------------------
+[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
+[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
+[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
+[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
+[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
+
+	Nonpreemptive Priority Scheduling Algorithm
+
+3	0	20
+1	20	36
+0	36	43
+4	43	50
+2	50	52
+3333333333333333333311111111111111110000000444444422X
+0                  20              36     43     5052
+	Average Waiting Time     : 29.20
+	Average Turnaround Time  : 39.60
+------------------------------------------------------------
+[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
+[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
+[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
+[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
+[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
+
+	RR Scheduling Algorithm
+
+3333444400001111223333444000111133331111333311113333
+
+	Average Waiting Time     : 23.20
+	Average Turnaround Time  : 33.60
+------------------------------------------------------------
+[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
+[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
+[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
+[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
+[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
+
+	PreemptiveSJF Scheduling Algorithm
+
+4224444440000000111111111111111133333333333333333333
+
+	Average Waiting Time     : 11.40
+	Average Turnaround Time  : 21.80
+------------------------------------------------------------
+[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
+[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
+[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
+[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
+[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
+
+	PreemptivePriority Scheduling Algorithm
+
+3111111111111111100000003333333333333333333444444422
+
+	Average Waiting Time     : 26.20
+	Average Turnaround Time  : 36.60
