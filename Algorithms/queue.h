@@ -1,0 +1,294 @@
+#pragma once
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>  
+#include "process.h"
+
+#define NUM 5 //NumOfProcesses
+#define DEBUG_MODE 0
+
+process* Create_Process(void);
+void print_process(process *p, int len);
+process* copy_process(process *p);
+process* copy_origin_process(process *p);
+
+
+
+process* Create_Process(void){
+    // int num_processes = NUM;
+    process* process_ = (process*) malloc(NUM * sizeof(process));
+    // process process_[NUM];
+    for (int i=0; i<NUM; i++){
+        process_[i].PID = i;
+        process_[i].arrival_time = (rand()%2);
+        process_[i].CPU_burst_time = (rand()%20)+1;
+        process_[i].IO_burst_time = (rand()%11)+1;
+        // process_[i].IO_request_time = 
+        process_[i].priority = (rand()%10)+1;
+
+        process_[i].waiting_time = 0;
+        process_[i].turnaround_time = 0;
+        process_[i].terminated_time = 0;
+    }
+
+    // print_process(process_, NUM);
+    return process_;
+}
+
+void print_process(process *p, int len){
+    for (int i=0; i<len; i++){
+        printf("[process %d]: (arrival time: %d /cpu burst: %d /IO burst %d/priority: %d)\n", \
+            p[i].PID, p[i].arrival_time, p[i].CPU_burst_time, p[i].IO_burst_time, p[i].priority);
+    }
+}
+
+process* copy_origin_process(process *p){
+    process* copied_process = (process*) malloc(NUM * sizeof(process));
+    for (int i=0; i<NUM; i++){
+        copied_process[i] = p[i];
+    }
+    return copied_process;
+}
+
+process* copy_process(process *p){
+    process* copied_process = (process*) malloc(NUM * sizeof(process));
+    for (int i=0; i<NUM; i++){
+        copied_process[i] = p[i];
+    }
+    return copied_process;
+}
+
+//Job queue
+int NoP_in_JQ; //rear
+process* init_job_queue(process *p){
+    process* job_queue = copy_origin_process(p);
+    NoP_in_JQ = NUM;
+
+    return job_queue;
+}
+
+process pop_from_job_queue(process* p, int target_idx){
+    if (NoP_in_JQ <= 0) {
+        process NullP;
+        NullP.PID = -1;
+        return NullP;
+    }
+    else{
+        process poped_process = p[target_idx];
+
+        for (int i=target_idx; i<NoP_in_JQ; i++){
+            p[i] = p[i+1];
+        }
+        NoP_in_JQ--;
+        if (DEBUG_MODE) printf("\t\tpop_from_job_queue\tPID: %d\n", poped_process.PID);
+        
+        return poped_process;
+    }
+}
+
+//Ready queue
+int NoP_in_RQ; //rear
+process* init_ready_queue(void){
+    process* ready_queue = (process*) malloc(NUM * sizeof(process));
+    NoP_in_RQ = 0;
+
+    return ready_queue;
+}
+
+process pop_from_ready_queue(process* p, int target_idx){
+    if (NoP_in_RQ <= 0) {
+        printf("ERROR: ready queue is empty!!\n");
+        process NullP;
+        NullP.PID = -1;
+        return NullP;
+    }
+    else{
+        process poped_process = p[target_idx];
+
+        for (int i=target_idx; i<NoP_in_RQ; i++){
+            p[i] = p[i+1];
+        }
+        NoP_in_RQ--;
+        
+
+        if (DEBUG_MODE) printf("\t\tpop_from_ready_queue\tPID: %d\n", poped_process.PID);
+
+        return poped_process;
+    }
+}
+
+void insert_ready_queue(process* p, process insert, int mode){
+    if (NoP_in_RQ < NUM){
+        int idx = NoP_in_RQ;
+        if (DEBUG_MODE) printf("mode: %d\n", mode);
+        switch (mode)
+        {
+        case 0:
+            //non-preemptive
+            break;
+        
+        case 1:
+            //Preemptive SJF
+            for (int i=0; i<NoP_in_RQ; i++){
+                if (DEBUG_MODE) printf("%d\t%d\n", p[i].CPU_burst_time, insert.CPU_burst_time);
+                if (p[i].CPU_burst_time > insert.CPU_burst_time){
+                    idx = i;
+                    break;
+                }
+            }
+            for (int i=NoP_in_RQ; i>idx; i--){
+                p[i] = p[i-1];
+            }
+            break;
+
+        case 2:
+            //Preemptive Priority
+            for (int i=0; i<NoP_in_RQ; i++){
+                if (p[i].priority > insert.priority){
+                    idx = i;
+                    break;
+                }
+            }
+            for (int i=NoP_in_RQ; i>idx; i--){
+                p[i] = p[i-1];
+            }
+            break;
+
+        default:
+            break;
+        }
+        p[idx] = insert;
+        NoP_in_RQ++;
+        
+        if (DEBUG_MODE) printf("\t\tinsert_ready_queue\tPID: %d\n", insert.PID);
+    }
+    else{
+        printf("ERROR: ready queue is already full!!\n");
+    }
+}
+// void insert_ready_queue(process* p, process insert){
+//     if (NoP_in_RQ < NUM){
+//         p[NoP_in_RQ] = insert;
+//         NoP_in_RQ++;
+//         if (DEBUG_MODE) printf("\t\tinsert_ready_queue\tPID: %d\n", insert.PID);
+//         // return p;
+//     }
+//     else{
+//         printf("ERROR: ready queue is already full!!\n");
+//         // return p;
+//     }
+    
+// }
+
+//Wait queue
+int NoP_in_WQ; //rear
+process* init_wait_queue(void){
+    process* wait_queue = (process*) malloc(NUM * sizeof(process));
+    NoP_in_WQ = 0;
+
+    return wait_queue;
+}
+
+process pop_from_wait_queue(process* p, int target_idx){
+    if (NoP_in_WQ <= 0) {
+        printf("ERROR: wait queue is empty!!\n");
+        process NullP;
+        NullP.PID = -1;
+        return NullP;
+    }
+    else{
+        process poped_process = p[target_idx];
+
+        for (int i=target_idx; i<NoP_in_WQ; i++){
+            p[i] = p[i+1];
+        }
+        NoP_in_WQ--;
+
+        if (DEBUG_MODE) printf("pop_from_wait_queue\tPID: %d\n", poped_process.PID);
+        return poped_process;
+    }
+}
+
+void insert_wait_queue(process* p, process insert, int mode){
+    if (NoP_in_WQ < NUM){
+        int idx;
+        switch (mode)
+        {
+        case 0:
+            //
+            idx = NoP_in_WQ;
+            break;
+        
+        case 1:
+            //Preemptive SJF
+            for (int i=0; i<NoP_in_WQ; i++){
+                if (p[i].CPU_burst_time > insert.CPU_burst_time){
+                    idx = i;
+                    break;
+                }
+            }
+            for (int i=NoP_in_WQ; i>idx; i--){
+                p[i] = p[i-1];
+            }
+
+        case 2:
+            //Preemptive Priority
+            for (int i=0; i<NoP_in_WQ; i++){
+                if (p[i].priority > insert.priority){
+                    idx = i;
+                    break;
+                }
+            }
+            for (int i=NoP_in_WQ; i>idx; i--){
+                p[i] = p[i-1];
+            }
+
+        default:
+            break;
+        }
+        p[idx] = insert;
+        NoP_in_WQ++;
+        
+    }
+    else{
+        printf("ERROR: wait queue is already full!!\n");
+        // return p;
+    }
+    
+}
+
+//Terminated queue
+int NoP_in_TQ; //rear
+process* init_terminated_queue(void){
+    process* terminated_queue = (process*) malloc(NUM * sizeof(process));
+    NoP_in_TQ = 0;
+
+    return terminated_queue;
+}
+
+void insert_terminated_queue(process* p, process insert){
+    if (NoP_in_TQ < NUM){
+        p[NoP_in_TQ] = insert;
+        NoP_in_TQ++;
+    }
+    else{
+        printf("ERROR: terminated queue is already full!!\n");
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

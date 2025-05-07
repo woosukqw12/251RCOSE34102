@@ -2,21 +2,21 @@
 #include "utils.h"
 
 // #include "SchedulerSimulator.c"
-process* SORT_by_arrival(process *p, int len){
-    process temp;
+// process* SORT_by_arrival(process *p, int len){
+//     process temp;
 
-    //bubble sort
-    for (int iter=0; iter<len-1; iter++){
-        for (int idx=0; idx<len-1; idx++){
-            if (p[idx].arrival_time > p[idx+1].arrival_time){
-                temp = p[idx];
-                p[idx] = p[idx+1];
-                p[idx+1] = temp;
-            }
-        }
-    }
-	return p;
-}
+//     //bubble sort
+//     for (int iter=0; iter<len-1; iter++){
+//         for (int idx=0; idx<len-1; idx++){
+//             if (p[idx].arrival_time > p[idx+1].arrival_time){
+//                 temp = p[idx];
+//                 p[idx] = p[idx+1];
+//                 p[idx+1] = temp;
+//             }
+//         }
+//     }
+// 	return p;
+// }
 
 void print_gantt_chart(time_stamp *stamp, int len, int total_terminated_time){
 	// stamp print

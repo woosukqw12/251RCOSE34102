@@ -1,5 +1,6 @@
 #pragma once
 
+
 typedef struct{
     int PID;
     int arrival_time;
@@ -19,3 +20,7 @@ typedef struct {
     int end;
 } time_stamp;
 
+typedef struct{
+    int PID;
+    int count;
+} vector;

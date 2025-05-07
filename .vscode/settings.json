@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "process.h": "c",
+        "rr.h": "c",
+        "preemptivepriority.h": "c"
+    }
+}
