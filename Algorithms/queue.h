@@ -21,12 +21,16 @@ process* Create_Process(void){
     // process process_[NUM];
     for (int i=0; i<NUM; i++){
         process_[i].PID = i;
-        process_[i].arrival_time = (rand()%2);
+        process_[i].arrival_time = (rand()%10);
         process_[i].CPU_burst_time = (rand()%20)+1;
-        process_[i].IO_burst_time = (rand()%11)+1;
-        // process_[i].IO_request_time = 
+        process_[i].IO_burst_time = (rand()%10)+1;
+        if ( (rand()%100) < 40 ){
+            process_[i].IO_request_time = (rand()%process_[i].CPU_burst_time); // cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
+        }
+        else{
+            process_[i].IO_request_time = -1;
+        }
         process_[i].priority = (rand()%10)+1;
-
         process_[i].waiting_time = 0;
         process_[i].turnaround_time = 0;
         process_[i].terminated_time = 0;
@@ -98,7 +102,7 @@ process* init_ready_queue(void){
 
 process pop_from_ready_queue(process* p, int target_idx){
     if (NoP_in_RQ <= 0) {
-        printf("ERROR: ready queue is empty!!\n");
+        printf("ERROR: ready queue is empty!! pid:%d\n", p[target_idx].PID);
         process NullP;
         NullP.PID = -1;
         return NullP;
@@ -121,11 +125,11 @@ process pop_from_ready_queue(process* p, int target_idx){
 void insert_ready_queue(process* p, process insert, int mode){
     if (NoP_in_RQ < NUM){
         int idx = NoP_in_RQ;
-        if (DEBUG_MODE) printf("mode: %d\n", mode);
+        // if (DEBUG_MODE) printf("mode: %d\n", mode);
         switch (mode)
         {
         case 0:
-            //non-preemptive
+            //non-preemptive, default=FCFS
             break;
         
         case 1:
@@ -133,6 +137,7 @@ void insert_ready_queue(process* p, process insert, int mode){
             for (int i=0; i<NoP_in_RQ; i++){
                 if (DEBUG_MODE) printf("%d\t%d\n", p[i].CPU_burst_time, insert.CPU_burst_time);
                 if (p[i].CPU_burst_time > insert.CPU_burst_time){
+                    //insert보다 burst time이 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
                     idx = i;
                     break;
                 }
@@ -146,6 +151,7 @@ void insert_ready_queue(process* p, process insert, int mode){
             //Preemptive Priority
             for (int i=0; i<NoP_in_RQ; i++){
                 if (p[i].priority > insert.priority){
+                    //insert보다 priority value가가 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
                     idx = i;
                     break;
                 }
@@ -166,6 +172,11 @@ void insert_ready_queue(process* p, process insert, int mode){
     else{
         printf("ERROR: ready queue is already full!!\n");
     }
+}
+void print_ready_queue(process* p){
+    printf("ready queue: ");
+    for (int i=0; i<NoP_in_RQ; i++) printf("%d ", p[i].PID);
+    printf("\n");
 }
 // void insert_ready_queue(process* p, process insert){
 //     if (NoP_in_RQ < NUM){
@@ -221,7 +232,7 @@ void insert_wait_queue(process* p, process insert, int mode){
             break;
         
         case 1:
-            //Preemptive SJF
+            //Preemptive SJF. 사용하지 않음
             for (int i=0; i<NoP_in_WQ; i++){
                 if (p[i].CPU_burst_time > insert.CPU_burst_time){
                     idx = i;
@@ -233,7 +244,7 @@ void insert_wait_queue(process* p, process insert, int mode){
             }
 
         case 2:
-            //Preemptive Priority
+            //Preemptive Priority. 사용하지 않음
             for (int i=0; i<NoP_in_WQ; i++){
                 if (p[i].priority > insert.priority){
                     idx = i;
