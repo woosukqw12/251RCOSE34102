@@ -4,7 +4,7 @@
 
 #define TimeQuantum 4
 
-void RR(process *p, int len)
+evaluation_result RR(process *p, int len)
 {
 	//init
 	int TotalTime = 0;
@@ -13,25 +13,29 @@ void RR(process *p, int len)
 	int total_turnaround_time = 0; // 총 턴어라운드 타임을 저장할 변수 선언 및 초기화
 
 	char gantt_record[20*len];
+	char IO_record[20*len];
 
 	process* job_queue = init_job_queue(p);
 	process* ready_queue = init_ready_queue();
 	process* wait_queue = init_wait_queue();
 	process* terminated_queue = init_terminated_queue();
 
-	int burst_time_record[len];
+	int cpu_burst_time_record[len];
+	int IO_burst_time_record[len];
 	// fin. init
 
-	for (int i=0; i<len; i++) burst_time_record[i] = job_queue[i].CPU_burst_time;
-
+	for (int i=0; i<len; i++) {
+		cpu_burst_time_record[i] = job_queue[i].CPU_burst_time;
+		IO_burst_time_record[i] = 0;
+	}
 	
 	job_queue = SORT_by_arrival(job_queue, len);
 	
 
 	printf("------------------------------------------------------------\n");
 	for (int i=0; i<len; i++){
-        printf("[process %d]: (arrival time: %d /cpu burst: %d /IO burst %d/priority: %d)\n", \
-            job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].IO_burst_time, job_queue[i].priority);
+        printf("[process %d]: (arrival time: %d /cpu burst: %d /IO burst %d /IO request %d/priority: %d)\n", \
+            job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].IO_burst_time, job_queue[i].IO_request_time, job_queue[i].priority);
     }
 
 	while(1){
@@ -42,9 +46,49 @@ void RR(process *p, int len)
 			}
 		}
 
+		// 1. I/O request 판단	2. I/O burst 판단 3. ready queue에서 cpu burst판단
+		//I/O request 판단
+		if (NoP_in_RQ > 0) {
+			if (ready_queue[0].IO_request_time==0){
+				if (DEBUG_MODE) printf("IO request. PID:%d, IO burst:%d\n", ready_queue[0].PID, ready_queue[0].IO_burst_time);
+				// IO작업한 시간만큼 waiting time에서 빼주기 위해 arr에 추가
+				IO_burst_time_record[ready_queue[0].PID] = ready_queue[0].IO_burst_time;
+				insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, 0), 0);
+				runningTime = 0;
+			}
+		}
+		//I/O processing 1: busrted process is poped from wait queue and inserted in ready queue
+		//I/O processing 2: decreasing IO_burst_time for first waiting process
+		if (NoP_in_WQ > 0){
+			if (wait_queue[0].IO_burst_time == 0){
+				// I/O 끝나서 ready queue로 복귀
+				// printf("pop from wait queue\n");
+				wait_queue[0].IO_request_time = -999; 
+				insert_ready_queue(ready_queue, pop_from_wait_queue(wait_queue, 0), 0);
+
+				if (NoP_in_WQ > 0){
+					sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
+					// wait queue에 2개 이상이 있고, 처음p가 끝나서 나가면 그 다음p의 IO시간을 감소시켜야 함.
+					wait_queue[0].IO_burst_time--;
+					if (DEBUG_MODE) printf("%d(%d)->(%d)\n",wait_queue[0].PID, wait_queue[0].IO_burst_time+1, wait_queue[0].IO_burst_time);
+				} 
+				else IO_record[TotalTime] = 'X'; 
+			}
+			else{
+				// printf("decreasing IO_burst_time PID: %d, IO busrt: %d\n", wait_queue[0].PID, wait_queue[0].IO_burst_time);
+				sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
+				wait_queue[0].IO_burst_time--;
+			}
+			
+		}
+		else IO_record[TotalTime] = 'X';
+
+		if (DEBUG_MODE) print_ready_queue(ready_queue);
+
 		//CPU processing
 		if (NoP_in_RQ > 0) {
 			ready_queue[0].CPU_burst_time--; //FCFS
+			ready_queue[0].IO_request_time--;
 			// printf("PID:%d, remaining_burst: %d, waiting time: %d\n", ready_queue[0].PID, ready_queue[0].CPU_burst_time,ready_queue[0].waiting_time);
 			
 			runningTime++;
@@ -53,7 +97,7 @@ void RR(process *p, int len)
 			sprintf(&gantt_record[TotalTime], "%d", ready_queue[0].PID); 
 
 			if (ready_queue[0].CPU_burst_time <= 0){
-				ready_queue[0].waiting_time = TotalTime+1 - burst_time_record[ready_queue[0].PID] - ready_queue[0].arrival_time;
+				ready_queue[0].waiting_time = TotalTime+1 - cpu_burst_time_record[ready_queue[0].PID] - IO_burst_time_record[ready_queue[0].PID]- ready_queue[0].arrival_time;
 				ready_queue[0].turnaround_time = TotalTime+1 - ready_queue[0].arrival_time;
 
 				insert_terminated_queue(terminated_queue, pop_from_ready_queue(ready_queue, 0));
@@ -62,7 +106,7 @@ void RR(process *p, int len)
 			}
 		}
 		else{
-			printf("idle\n");
+			// printf("idle\n");
 			gantt_record[TotalTime] = 'X';
 			runningTime = 0;
 		}
@@ -85,11 +129,18 @@ void RR(process *p, int len)
 		total_turnaround_time = total_turnaround_time + terminated_queue[idx].turnaround_time;
 	}
 
+	evaluation_result result;
+	result.algorithm_idx = 3;
+	result.avg_waiting_time = (double)total_waiting_time / (double)len;
+	result.avg_turnaround_time = (double)total_turnaround_time / (double)len;
+
 	printf("\n\tRR Scheduling Algorithm\n\n");
 	print_gantt_chart(gantt_record, len, TotalTime);
+	print_gantt_chart(IO_record, len, TotalTime);
 
 	/* 평균 대기시간, 턴어라운드 타임, 응답 시간 출력 */
-	printf("\n\tAverage Waiting Time     : %-2.2lf\n", (double)total_waiting_time / (double)len);
-	printf("\tAverage Turnaround Time  : %-2.2lf\n", (double)total_turnaround_time / (double)len);
+	printf("\n\tAverage Waiting Time     : %-2.2lf\n", result.avg_waiting_time);
+	printf("\tAverage Turnaround Time  : %-2.2lf\n", result.avg_turnaround_time);
 
+	return result;
 }

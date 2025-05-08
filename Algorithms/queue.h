@@ -164,10 +164,28 @@ void insert_ready_queue(process* p, process insert, int mode){
         case 3:
             //Non-preemptive SJF
             if (NoP_in_RQ > 1){
+                // 선점 안하니까 len=0, 1일땐 그냥 뒤에 넣으면 됨
                 for (int i=1; i<NoP_in_RQ; i++){
                     if (DEBUG_MODE) printf("%d\t%d\n", p[i].CPU_burst_time, insert.CPU_burst_time);
                     if (p[i].CPU_burst_time > insert.CPU_burst_time){
                         //insert보다 burst time이 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
+                        idx = i;
+                        break;
+                    }
+                }
+                for (int i=NoP_in_RQ; i>idx; i--){
+                    p[i] = p[i-1];
+                }
+            }
+            break;
+
+        case 4:
+            //Non-Preemptive Priority
+            if (NoP_in_RQ > 1){
+                // 선점 안하니까 len=0, 1일땐 그냥 뒤에 넣으면 됨
+                for (int i=1; i<NoP_in_RQ; i++){
+                    if (p[i].priority > insert.priority){
+                        //insert보다 priority value가가 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
                         idx = i;
                         break;
                     }
@@ -191,10 +209,11 @@ void insert_ready_queue(process* p, process insert, int mode){
     }
 }
 void print_ready_queue(process* p){
-    printf("ready queue: ");
+    printf("ready queue[%d]:\t", NoP_in_RQ);
     for (int i=0; i<NoP_in_RQ; i++) printf("%d ", p[i].PID);
     printf("\n");
 }
+
 // void insert_ready_queue(process* p, process insert){
 //     if (NoP_in_RQ < NUM){
 //         p[NoP_in_RQ] = insert;
@@ -277,13 +296,18 @@ void insert_wait_queue(process* p, process insert, int mode){
         }
         p[idx] = insert;
         NoP_in_WQ++;
-        
+        if (DEBUG_MODE) printf("\t\tinsert_wait_queue\tPID: %d\n", insert.PID);
     }
     else{
         printf("ERROR: wait queue is already full!!\n");
         // return p;
     }
     
+}
+void print_wait_queue(process* p){
+    printf("wait  queue[%d]:\t", NoP_in_WQ);
+    for (int i=0; i<NoP_in_WQ; i++) printf("%d(%d) ", p[i].PID, p[i].IO_burst_time);
+    printf("\n");
 }
 
 //Terminated queue

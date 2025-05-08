@@ -19,3 +19,10 @@ typedef struct {
     int start;
     int end;
 } time_stamp;
+
+
+typedef struct {
+    int algorithm_idx;
+    double avg_waiting_time;
+    double avg_turnaround_time;
+} evaluation_result;

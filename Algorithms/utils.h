@@ -5,6 +5,8 @@ int max(int a, int b){
 	return b;
 }
 
+
+
 process* SORT_by_arrival(process *p, int len){
     process temp;
 

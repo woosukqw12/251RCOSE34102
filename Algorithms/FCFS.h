@@ -2,7 +2,8 @@
 #include "utils.h"
 #include "queue.h"
 
-void FCFS(process *p, int len)
+
+evaluation_result FCFS(process *p, int len)
 {
 	//init
 	int TotalTime = 0;
@@ -37,7 +38,7 @@ void FCFS(process *p, int len)
     }
 
 	while(1){
-		printf("<<Time>> %d\n", TotalTime);
+		if (DEBUG_MODE) printf("<<Time>> %d\n", TotalTime);
 		//job scheduling
 		for (int idx=0; idx<NoP_in_JQ; idx++){
 			if (job_queue[0].arrival_time <= TotalTime){
@@ -48,7 +49,7 @@ void FCFS(process *p, int len)
 		//I/O request 판단
 		if (NoP_in_RQ > 0) {
 			if (ready_queue[0].IO_request_time==0){
-				printf("IO request. PID:%d, IO burst:%d\n", ready_queue[0].PID, ready_queue[0].IO_burst_time);
+				if (DEBUG_MODE) printf("IO request. PID:%d, IO burst:%d\n", ready_queue[0].PID, ready_queue[0].IO_burst_time);
 				// IO작업한 시간만큼 waiting time에서 빼주기 위해 arr에 추가
 				IO_burst_time_record[ready_queue[0].PID] = ready_queue[0].IO_burst_time;
 				insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, 0), 0);
@@ -63,7 +64,12 @@ void FCFS(process *p, int len)
 				wait_queue[0].IO_request_time = -999; 
 				insert_ready_queue(ready_queue, pop_from_wait_queue(wait_queue, 0), 0);
 
-				if (NoP_in_WQ > 0) sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
+				if (NoP_in_WQ > 0){
+					sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
+					// wait queue에 2개 이상이 있고, 처음p가 끝나서 나가면 그 다음p의 IO시간을 감소시켜야 함.
+					wait_queue[0].IO_burst_time--;
+					if (DEBUG_MODE) printf("%d(%d)->(%d)\n",wait_queue[0].PID, wait_queue[0].IO_burst_time+1, wait_queue[0].IO_burst_time);
+				} 
 				else IO_record[TotalTime] = 'X'; 
 			}
 			else{
@@ -75,7 +81,7 @@ void FCFS(process *p, int len)
 		}
 		else IO_record[TotalTime] = 'X';
 
-		print_ready_queue(ready_queue);
+		if (DEBUG_MODE) print_ready_queue(ready_queue);
 
 		//CPU processing
 		if (NoP_in_RQ > 0) {
@@ -113,11 +119,18 @@ void FCFS(process *p, int len)
 		total_turnaround_time = total_turnaround_time + terminated_queue[idx].turnaround_time;
 	}
 
+	evaluation_result result;
+	result.algorithm_idx = 0;
+	result.avg_waiting_time = (double)total_waiting_time / (double)len;
+	result.avg_turnaround_time = (double)total_turnaround_time / (double)len;
+
 	printf("\n\tFCFS Scheduling Algorithm\n\n");
 	print_gantt_chart(gantt_record, len, TotalTime);
 	print_gantt_chart(IO_record, len, TotalTime);
 
 	/* 평균 대기시간, 턴어라운드 타임, 응답 시간 출력 */
-	printf("\n\tAverage Waiting Time     : %-2.2lf\n", (double)total_waiting_time / (double)len);
-	printf("\tAverage Turnaround Time  : %-2.2lf\n", (double)total_turnaround_time / (double)len);
+	printf("\n\tAverage Waiting Time     : %-2.2lf\n", result.avg_waiting_time);
+	printf("\tAverage Turnaround Time  : %-2.2lf\n", result.avg_turnaround_time);
+
+	return result;
 }
