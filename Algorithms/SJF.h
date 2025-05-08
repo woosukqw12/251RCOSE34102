@@ -38,10 +38,11 @@ void SJF(process *p, int len)
 
 	
 	while(1){
+		printf("<<Time>> %d\n", TotalTime);
 		//job scheduling
-		for (int idx=0; idx<NoP_in_JQ; idx++){
-			if (job_queue[0].arrival_time <= TotalTime){
-				insert_ready_queue(ready_queue, pop_from_job_queue(job_queue, 0), 0);
+		for (int idx=NoP_in_JQ-1; idx>=0; idx--){
+			if (job_queue[idx].arrival_time <= TotalTime){
+				insert_ready_queue(ready_queue, pop_from_job_queue(job_queue, idx), 3);
 			}
 		}
 
@@ -62,7 +63,7 @@ void SJF(process *p, int len)
 				// I/O 끝나서 ready queue로 복귀
 				// printf("pop from wait queue\n");
 				wait_queue[0].IO_request_time = -999; 
-				insert_ready_queue(ready_queue, pop_from_wait_queue(wait_queue, 0), 0);
+				insert_ready_queue(ready_queue, pop_from_wait_queue(wait_queue, 0), 3);
 
 				if (NoP_in_WQ > 0) sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
 				else IO_record[TotalTime] = 'X'; 
@@ -75,7 +76,7 @@ void SJF(process *p, int len)
 			
 		}
 		else IO_record[TotalTime] = 'X';
-
+		print_ready_queue(ready_queue);
 		//CPU processing
 		if (NoP_in_RQ > 0) {
 			ready_queue[0].CPU_burst_time--; //FCFS

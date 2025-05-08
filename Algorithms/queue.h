@@ -161,6 +161,23 @@ void insert_ready_queue(process* p, process insert, int mode){
             }
             break;
 
+        case 3:
+            //Non-preemptive SJF
+            if (NoP_in_RQ > 1){
+                for (int i=1; i<NoP_in_RQ; i++){
+                    if (DEBUG_MODE) printf("%d\t%d\n", p[i].CPU_burst_time, insert.CPU_burst_time);
+                    if (p[i].CPU_burst_time > insert.CPU_burst_time){
+                        //insert보다 burst time이 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
+                        idx = i;
+                        break;
+                    }
+                }
+                for (int i=NoP_in_RQ; i>idx; i--){
+                    p[i] = p[i-1];
+                }
+            }
+            break;
+
         default:
             break;
         }
