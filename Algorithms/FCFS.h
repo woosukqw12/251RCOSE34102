@@ -19,6 +19,9 @@ evaluation_result FCFS(process *p, int len)
 	process* wait_queue = init_wait_queue();
 	process* terminated_queue = init_terminated_queue();
 
+	evaluation_result result;
+	result.IDLE_time = 0;
+
 	int cpu_burst_time_record[len];
 	int IO_burst_time_record[len];
 	// fin. init
@@ -107,6 +110,7 @@ evaluation_result FCFS(process *p, int len)
 		else{
 			//no one in ready queue
 			// printf("idle\n");
+			result.IDLE_time++;
 			gantt_record[TotalTime] = 'X';
 		}
 
@@ -121,7 +125,7 @@ evaluation_result FCFS(process *p, int len)
 		total_turnaround_time = total_turnaround_time + terminated_queue[idx].turnaround_time;
 	}
 
-	evaluation_result result;
+	
 	result.algorithm_idx = 0;
 	result.avg_waiting_time = (double)total_waiting_time / (double)len;
 	result.avg_turnaround_time = (double)total_turnaround_time / (double)len;

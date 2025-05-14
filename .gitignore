@@ -3,3 +3,4 @@ res*
 
 res
 SchedulerSimulator copy.c
+queue copy.h

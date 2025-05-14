@@ -19,6 +19,9 @@ evaluation_result RR(process *p, int len)
 	process* ready_queue = init_ready_queue();
 	process* wait_queue = init_wait_queue();
 	process* terminated_queue = init_terminated_queue();
+	
+	evaluation_result result;
+	result.IDLE_time = 0;
 
 	int cpu_burst_time_record[len];
 	int IO_burst_time_record[len];
@@ -108,6 +111,7 @@ evaluation_result RR(process *p, int len)
 		}
 		else{
 			// printf("idle\n");
+			result.IDLE_time++;
 			gantt_record[TotalTime] = 'X';
 			runningTime = 0;
 		}
@@ -130,7 +134,6 @@ evaluation_result RR(process *p, int len)
 		total_turnaround_time = total_turnaround_time + terminated_queue[idx].turnaround_time;
 	}
 
-	evaluation_result result;
 	result.algorithm_idx = 3;
 	result.avg_waiting_time = (double)total_waiting_time / (double)len;
 	result.avg_turnaround_time = (double)total_turnaround_time / (double)len;

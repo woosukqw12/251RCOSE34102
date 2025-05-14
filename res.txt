@@ -179,53 +179,71 @@ Algorithm: [FCFS]
 	Average Waiting Time     : 23.20
 	Average Turnaround Time  : 39.60
 	Total running Time       : 63
+	IDEL_time                : 3
+	CPU utilization          : 95.24%
 
 ----------------------------------------------------------------------
 Algorithm: [Non-preempitve SJF]
 	Average Waiting Time     : 19.40
 	Average Turnaround Time  : 35.80
 	Total running Time       : 62
+	IDEL_time                : 2
+	CPU utilization          : 96.77%
 
 ----------------------------------------------------------------------
 Algorithm: [Non-preempitve Priority]
 	Average Waiting Time     : 20.60
 	Average Turnaround Time  : 37.00
 	Total running Time       : 72
+	IDEL_time                : 12
+	CPU utilization          : 83.33%
 
 ----------------------------------------------------------------------
 Algorithm: [RR]
 	Average Waiting Time     : 28.00
 	Average Turnaround Time  : 44.40
 	Total running Time       : 62
+	IDEL_time                : 2
+	CPU utilization          : 96.77%
 
 ----------------------------------------------------------------------
 Algorithm: [Preemptive SJF]
 	Average Waiting Time     : 12.60
 	Average Turnaround Time  : 29.00
 	Total running Time       : 62
+	IDEL_time                : 2
+	CPU utilization          : 96.77%
 
 ----------------------------------------------------------------------
 Algorithm: [Preemptive Priority]
 	Average Waiting Time     : 16.40
 	Average Turnaround Time  : 32.80
 	Total running Time       : 72
+	IDEL_time                : 12
+	CPU utilization          : 83.33%
 
 ----------------------------------------------------------------------
 Algorithm: [HRN]
 	Average Waiting Time     : 24.60
 	Average Turnaround Time  : 41.00
 	Total running Time       : 69
+	IDEL_time                : 9
+	CPU utilization          : 86.96%
 
 ----------------------------------------------------------------------
 Algorithm: [Non-preempitve Custom]
 	Average Waiting Time     : 20.00
 	Average Turnaround Time  : 36.40
 	Total running Time       : 62
+	IDEL_time                : 2
+	CPU utilization          : 96.77%
 
 ----------------------------------------------------------------------
 Algorithm: [preempitve Custom]
 	Average Waiting Time     : 20.80
 	Average Turnaround Time  : 37.20
 	Total running Time       : 70
+	IDEL_time                : 10
+	CPU utilization          : 85.71%
 
 ----------------------------------------------------------------------

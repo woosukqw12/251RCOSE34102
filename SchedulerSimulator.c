@@ -75,7 +75,9 @@ void eval(void){
         printf("Algorithm: [%s]\n", algorithms[result_array[i].algorithm_idx]);
         printf("\tAverage Waiting Time     : %-2.2lf\n", result_array[i].avg_waiting_time);
         printf("\tAverage Turnaround Time  : %-2.2lf\n", result_array[i].avg_turnaround_time);
-        printf("\tTotal running Time       : %d\n\n", result_array[i].total_running_time);
+        printf("\tTotal running Time       : %d\n", result_array[i].total_running_time);
+        printf("\tIDLE_time                : %d\n", result_array[i].IDLE_time);
+        printf("\tCPU utilization          : %-2.2lf%%\n\n", 100*((double)result_array[i].total_running_time-(double)result_array[i].IDLE_time)/(double)result_array[i].total_running_time);
     }
     printf("----------------------------------------------------------------------\n");
 }

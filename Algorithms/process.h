@@ -27,4 +27,5 @@ typedef struct {
     double avg_waiting_time;
     double avg_turnaround_time;
     int total_running_time;
+    int IDLE_time;
 } evaluation_result;
