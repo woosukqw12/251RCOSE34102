@@ -85,4 +85,5 @@ int main(void){
     Schedule();
 
     eval();
+    free(result_array);
 }

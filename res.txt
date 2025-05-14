@@ -1,93 +1,231 @@
-------------------------------------------------------------
-[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
-[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
-[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
-[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
-[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
+-------------------------------------------------------------------------------------
 
-	FCFS Scheduling Algorithm
+	[FCFS Scheduling Algorithm]
 
-3	0	20
-4	20	27
-0	27	34
-1	34	50
-2	50	52
-3333333333333333333344444440000000111111111111111122X
-0                  20     27     34              5052
-	Average Waiting Time     : 25.60
-	Average Turnaround Time  : 36.00
-------------------------------------------------------------
-[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
-[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
-[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
-[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
-[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
+[process 0]: (arrival time: 3/cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6/cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0/cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2/cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9/cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
 
-	NonpreemptiveSJF Scheduling Algorithm
+cpu gantt chart:	XX3333333333333333302222222222222222222211444000000X11111111111
+I/O gantt chart:	2222XXXXXXXXXXXXXXXX00000000XXXXXXXXXXXXXX1111111111XXXXXXXXXXX
 
-4	0	7
-2	7	9
-0	9	16
-1	16	32
-3	32	52
-4444444220000000111111111111111133333333333333333333X
-0     79     16              32                  52
-	Average Waiting Time     : 12.20
-	Average Turnaround Time  : 22.60
-------------------------------------------------------------
-[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
-[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
-[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
-[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
-[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
-
-	Nonpreemptive Priority Scheduling Algorithm
-
-3	0	20
-1	20	36
-0	36	43
-4	43	50
-2	50	52
-3333333333333333333311111111111111110000000444444422X
-0                  20              36     43     5052
-	Average Waiting Time     : 29.20
-	Average Turnaround Time  : 39.60
-------------------------------------------------------------
-[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
-[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
-[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
-[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
-[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
-
-	RR Scheduling Algorithm
-
-3333444400001111223333444000111133331111333311113333
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
 
 	Average Waiting Time     : 23.20
-	Average Turnaround Time  : 33.60
-------------------------------------------------------------
-[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
-[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
-[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
-[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
-[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
+	Average Turnaround Time  : 39.60
+-------------------------------------------------------------------------------------
 
-	PreemptiveSJF Scheduling Algorithm
+	[Non-preemptive SJF Scheduling Algorithm]
 
-4224444440000000111111111111111133333333333333333333
+[process 0]: (arrival time: 3 /cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6 /cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0 /cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2 /cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9 /cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
 
-	Average Waiting Time     : 11.40
-	Average Turnaround Time  : 21.80
-------------------------------------------------------------
-[process 3]: (arrival time: 0 /cpu burst: 20 /IO burst 8/priority: 7)
-[process 1]: (arrival time: 1 /cpu burst: 16 /IO burst 1/priority: 3)
-[process 0]: (arrival time: 1 /cpu burst: 7 /IO burst 7/priority: 6)
-[process 4]: (arrival time: 0 /cpu burst: 7 /IO burst 3/priority: 7)
-[process 2]: (arrival time: 1 /cpu burst: 2 /IO burst 9/priority: 8)
+cpu gantt chart:	XX333333333333333334440112222222222222222222200000011111111111
+I/O gantt chart:	2222XXXXXXXXXXXXXXXXXXX000000001111111111XXXXXXXXXXXXXXXXXXXXX
 
-	PreemptivePriority Scheduling Algorithm
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
 
-3111111111111111100000003333333333333333333444444422
+	Average Waiting Time     : 19.40
+	Average Turnaround Time  : 35.80
+-------------------------------------------------------------------------------------
 
-	Average Waiting Time     : 26.20
-	Average Turnaround Time  : 36.60
+	[Non-preemptive Priority Scheduling Algorithm]
+
+[process 0]: (arrival time: 3 /cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6 /cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0 /cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2 /cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9 /cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
+
+cpu gantt chart:	XX3333333333333333344402222222222222222222200000011XXXXXXXXXX11111111111
+I/O gantt chart:	2222XXXXXXXXXXXXXXXXXXX00000000XXXXXXXXXXXXXXXXXXXX1111111111XXXXXXXXXXX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 20.60
+	Average Turnaround Time  : 37.00
+-------------------------------------------------------------------------------------
+
+	[RR Scheduling Algorithm]
+
+[process 0]: (arrival time: 3 /cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6 /cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0 /cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2 /cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9 /cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
+
+cpu gantt chart:	XX333302222333311444222233330000222211113333002222111132222111
+I/O gantt chart:	2222XXX00000000XX1111111111XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 28.00
+	Average Turnaround Time  : 44.40
+-------------------------------------------------------------------------------------
+
+	[Preemptive SJF Scheduling Algorithm]
+
+[process 0]: (arrival time: 3 /cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6 /cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0 /cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2 /cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9 /cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
+
+cpu gantt chart:	XX303311344400000033333333333331111111111122222222222222222222
+I/O gantt chart:	2222000000001111111111XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 12.60
+	Average Turnaround Time  : 29.00
+-------------------------------------------------------------------------------------
+
+	[Preemptive Priority Scheduling Algorithm]
+
+[process 0]: (arrival time: 3 /cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6 /cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0 /cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2 /cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9 /cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
+
+cpu gantt chart:	XX3022222444000000222222222222222333333333333333311XXXXXXXXXX11111111111
+I/O gantt chart:	222200000000XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1111111111XXXXXXXXXXX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 16.40
+	Average Turnaround Time  : 32.80
+-------------------------------------------------------------------------------------
+
+	[Non-preemptive HRN Scheduling Algorithm]
+
+[process 0]: (arrival time: 3 /cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6 /cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0 /cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2 /cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9 /cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
+
+cpu gantt chart:	XX3333333333333333302222222222222222222200000011444XXXXXXX11111111111
+I/O gantt chart:	2222XXXXXXXXXXXXXXXX00000000XXXXXXXXXXXXXXXXXXXX1111111111XXXXXXXXXXX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 24.60
+	Average Turnaround Time  : 41.00
+-------------------------------------------------------------------------------------
+
+	[Non-preemptive Custom Scheduling Algorithm]
+
+[process 0]: (arrival time: 3 /cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6 /cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0 /cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2 /cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9 /cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
+
+cpu gantt chart:	XX333333333333333331104442222222222222222222200000011111111111
+I/O gantt chart:	2222XXXXXXXXXXXXXXXXX111111111100000000XXXXXXXXXXXXXXXXXXXXXXX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 20.00
+	Average Turnaround Time  : 36.40
+-------------------------------------------------------------------------------------
+
+	[Preemptive Custom Scheduling Algorithm]
+
+[process 0]: (arrival time: 3 /cpu burst: 7 /IO burst 8 /IO request 1 /priority: 6)
+[process 1]: (arrival time: 6 /cpu burst: 13 /IO burst 10 /IO request 2 /priority: 8)
+[process 2]: (arrival time: 0 /cpu burst: 20 /IO burst 4 /IO request 0 /priority: 7)
+[process 3]: (arrival time: 2 /cpu burst: 17 /IO burst 2 /IO request -1 /priority: 8)
+[process 4]: (arrival time: 9 /cpu burst: 3 /IO burst 1 /IO request -1 /priority: 4)
+
+cpu gantt chart:	XX332211244422222211111111111222222222223333333333333330XXXXXXXX000000
+I/O gantt chart:	2222XXXX1111111111XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX00000000XXXXXX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 20.80
+	Average Turnaround Time  : 37.20
+
+
+======================================================================
+==                                                                  ==
+==                        Evaluation  result                        ==
+==                                                                  ==
+======================================================================
+Total 9 scheduling algorithms below
+1. 'FCFS'  2. 'Non-preempitve SJF'  3. 'Non-preempitve Priority'  4. 'RR'  5. 'Preemptive SJF'  
+6. 'Preemptive Priority'  7. 'HRN'  8. 'Non-preempitve Custom'  9. 'preempitve Custom'  
+
+The shortest avg waiting time: [Preemptive SJF], 12.60.
+The shortest avg turnaround time: [Preemptive SJF], 29.00.
+
+----------------------------------------------------------------------
+Algorithm: [FCFS]
+	Average Waiting Time     : 23.20
+	Average Turnaround Time  : 39.60
+	Total running Time       : 63
+
+----------------------------------------------------------------------
+Algorithm: [Non-preempitve SJF]
+	Average Waiting Time     : 19.40
+	Average Turnaround Time  : 35.80
+	Total running Time       : 62
+
+----------------------------------------------------------------------
+Algorithm: [Non-preempitve Priority]
+	Average Waiting Time     : 20.60
+	Average Turnaround Time  : 37.00
+	Total running Time       : 72
+
+----------------------------------------------------------------------
+Algorithm: [RR]
+	Average Waiting Time     : 28.00
+	Average Turnaround Time  : 44.40
+	Total running Time       : 62
+
+----------------------------------------------------------------------
+Algorithm: [Preemptive SJF]
+	Average Waiting Time     : 12.60
+	Average Turnaround Time  : 29.00
+	Total running Time       : 62
+
+----------------------------------------------------------------------
+Algorithm: [Preemptive Priority]
+	Average Waiting Time     : 16.40
+	Average Turnaround Time  : 32.80
+	Total running Time       : 72
+
+----------------------------------------------------------------------
+Algorithm: [HRN]
+	Average Waiting Time     : 24.60
+	Average Turnaround Time  : 41.00
+	Total running Time       : 69
+
+----------------------------------------------------------------------
+Algorithm: [Non-preempitve Custom]
+	Average Waiting Time     : 20.00
+	Average Turnaround Time  : 36.40
+	Total running Time       : 62
+
+----------------------------------------------------------------------
+Algorithm: [preempitve Custom]
+	Average Waiting Time     : 20.80
+	Average Turnaround Time  : 37.20
+	Total running Time       : 70
+
+----------------------------------------------------------------------
