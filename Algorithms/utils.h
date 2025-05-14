@@ -100,9 +100,19 @@ process* SORT_by_arrival_and_priority(process *p, int len){
 
 
 
-void print_gantt_chart(char* gantt_record, int len, int total_terminated_time){
+void print_cpu_gantt_chart(char* gantt_record, int len, int total_terminated_time){
+	printf("\ncpu gantt chart:\t");
 	for (int i=0; i<total_terminated_time; i++){
 		printf("%c", gantt_record[i]);
 	}
 	printf("\n");
+}
+
+void print_IO_gantt_chart(char* gantt_record, int len, int total_terminated_time){
+	printf("I/O gantt chart:\t");
+	for (int i=0; i<total_terminated_time; i++){
+		printf("%c", gantt_record[i]);
+	}
+	printf("\n\nDescription for chart: Each number represents the PID of the process that was running during that time unit,\n\
+		\t\t\t\tand also X represents the IDLE in that time unit.\n");
 }

@@ -12,6 +12,7 @@ typedef struct{
     int terminated_time;
     int waiting_time;
     int turnaround_time;
+    int response_time;
 } process;
 
 typedef struct {
@@ -25,4 +26,5 @@ typedef struct {
     int algorithm_idx;
     double avg_waiting_time;
     double avg_turnaround_time;
+    int total_running_time;
 } evaluation_result;

@@ -2,10 +2,10 @@
 #include "utils.h"
 #include "queue.h"
 
-//  선점으로 인해 빠져나올때, 같은 burst time인 p가 존재한다면, FCFS를 따름
-evaluation_result PreemptiveSJF(process *p, int len)
+// custom Algorithm: nonpreemptive the first priority is due to Longest I/O burst and the second priority is due to Shortest cpu burst
+evaluation_result Custom(process *p, int len)
 {
-    
+	   
 	//init
 	int TotalTime = 0;
 	int total_waiting_time = 0; // 총 대기 시간을 저장할 변수 선언 및 초기화
@@ -29,21 +29,22 @@ evaluation_result PreemptiveSJF(process *p, int len)
 	}
 	// job_queue = SORT_by_arrival_and_burst(job_queue, len);
 	
+	
 
 	printf("-------------------------------------------------------------------------------------\n");
-	printf("\n\t[Preemptive SJF Scheduling Algorithm]\n\n");
+	printf("\n\t[Non-preemptive Custom Scheduling Algorithm]\n\n");
 	for (int i=0; i<len; i++){
         printf("[process %d]: (arrival time: %d /cpu burst: %d /IO burst %d /IO request %d /priority: %d)\n", \
             job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].IO_burst_time, job_queue[i].IO_request_time, job_queue[i].priority);
     }
 	job_queue = SORT_by_arrival(job_queue, len);
+	
 	while(1){
-		// printf("<<Time>> %d\n", TotalTime);
+		if (DEBUG_MODE) printf("<<Time>> %d\n", TotalTime);
 		//job scheduling
-
 		for (int idx=NoP_in_JQ-1; idx>=0; idx--){
 			if (job_queue[idx].arrival_time <= TotalTime){
-				insert_ready_queue(ready_queue, pop_from_job_queue(job_queue, idx), 1);
+				insert_ready_queue(ready_queue, pop_from_job_queue(job_queue, idx), 6);
 			}
 		}
 
@@ -55,7 +56,6 @@ evaluation_result PreemptiveSJF(process *p, int len)
 				// IO작업한 시간만큼 waiting time에서 빼주기 위해 arr에 추가
 				IO_burst_time_record[ready_queue[0].PID] = ready_queue[0].IO_burst_time;
 				insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, 0), 0);
-				// printf("NoP_in_WQ: %d\n", NoP_in_WQ);
 			}
 		}
 		//I/O processing 1: busrted process is poped from wait queue and inserted in ready queue
@@ -65,13 +65,13 @@ evaluation_result PreemptiveSJF(process *p, int len)
 				// I/O 끝나서 ready queue로 복귀
 				// printf("pop from wait queue\n");
 				wait_queue[0].IO_request_time = -999; 
-				insert_ready_queue(ready_queue, pop_from_wait_queue(wait_queue, 0), 1);
+				insert_ready_queue(ready_queue, pop_from_wait_queue(wait_queue, 0), 6);
 
 				if (NoP_in_WQ > 0){
 					sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
 					// wait queue에 2개 이상이 있고, 처음p가 끝나서 나가면 그 다음p의 IO시간을 감소시켜야 함.
 					wait_queue[0].IO_burst_time--;
-					// printf("%d(%d)->(%d)\n",wait_queue[0].PID, wait_queue[0].IO_burst_time+1, wait_queue[0].IO_burst_time);
+					if (DEBUG_MODE) printf("%d(%d)->(%d)\n",wait_queue[0].PID, wait_queue[0].IO_burst_time+1, wait_queue[0].IO_burst_time);
 				} 
 				else IO_record[TotalTime] = 'X'; 
 			}
@@ -79,12 +79,11 @@ evaluation_result PreemptiveSJF(process *p, int len)
 				// printf("decreasing IO_burst_time PID: %d, IO busrt: %d\n", wait_queue[0].PID, wait_queue[0].IO_burst_time);
 				sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
 				wait_queue[0].IO_burst_time--;
-				// printf("%d(%d)->(%d)\n",wait_queue[0].PID, wait_queue[0].IO_burst_time+1, wait_queue[0].IO_burst_time);
 			}
+			
 		}
 		else IO_record[TotalTime] = 'X';
-		// print_ready_queue(ready_queue);
-		// print_wait_queue(wait_queue);
+		if (DEBUG_MODE) print_ready_queue(ready_queue);
 		//CPU processing
 		if (NoP_in_RQ > 0) {
 			ready_queue[0].CPU_burst_time--; //FCFS
@@ -95,6 +94,7 @@ evaluation_result PreemptiveSJF(process *p, int len)
 			sprintf(&gantt_record[TotalTime], "%d", ready_queue[0].PID); 
 
 			if (ready_queue[0].CPU_burst_time <= 0){
+				// waiting time은 ready queue에서 대기한 시간만 count
 				ready_queue[0].waiting_time = TotalTime+1 - cpu_burst_time_record[ready_queue[0].PID] - IO_burst_time_record[ready_queue[0].PID]- ready_queue[0].arrival_time;
 				ready_queue[0].turnaround_time = TotalTime+1 - ready_queue[0].arrival_time;
 
@@ -117,7 +117,7 @@ evaluation_result PreemptiveSJF(process *p, int len)
 	}
 
 	evaluation_result result;
-	result.algorithm_idx = 4;
+	result.algorithm_idx = 7;
 	result.avg_waiting_time = (double)total_waiting_time / (double)len;
 	result.avg_turnaround_time = (double)total_turnaround_time / (double)len;
 	result.total_running_time = TotalTime;

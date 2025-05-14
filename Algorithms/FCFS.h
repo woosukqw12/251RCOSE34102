@@ -28,15 +28,17 @@ evaluation_result FCFS(process *p, int len)
 		IO_burst_time_record[i] = 0;
 	}
 	
-	job_queue = SORT_by_arrival(job_queue, len);
+	
 	
 
-	printf("------------------------------------------------------------\n");
+	printf("-------------------------------------------------------------------------------------\n");
+	printf("\n\t[FCFS Scheduling Algorithm]\n\n");
+	
 	for (int i=0; i<len; i++){
-        printf("[process %d]: (arrival time: %d /cpu burst: %d /IO burst %d /IO request %d/priority: %d)\n", \
+        printf("[process %d]: (arrival time: %d/cpu burst: %d /IO burst %d /IO request %d /priority: %d)\n", \
             job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].IO_burst_time, job_queue[i].IO_request_time, job_queue[i].priority);
     }
-
+	job_queue = SORT_by_arrival(job_queue, len);
 	while(1){
 		if (DEBUG_MODE) printf("<<Time>> %d\n", TotalTime);
 		//job scheduling
@@ -123,10 +125,11 @@ evaluation_result FCFS(process *p, int len)
 	result.algorithm_idx = 0;
 	result.avg_waiting_time = (double)total_waiting_time / (double)len;
 	result.avg_turnaround_time = (double)total_turnaround_time / (double)len;
+	result.total_running_time = TotalTime;
 
-	printf("\n\tFCFS Scheduling Algorithm\n\n");
-	print_gantt_chart(gantt_record, len, TotalTime);
-	print_gantt_chart(IO_record, len, TotalTime);
+	
+	print_cpu_gantt_chart(gantt_record, len, TotalTime);
+	print_IO_gantt_chart(IO_record, len, TotalTime);
 
 	/* 평균 대기시간, 턴어라운드 타임, 응답 시간 출력 */
 	printf("\n\tAverage Waiting Time     : %-2.2lf\n", result.avg_waiting_time);

@@ -8,3 +8,7 @@
 #include "Algorithms/RR.h"
 #include "Algorithms/PreemptiveSJF.h"
 #include "Algorithms/PreemptivePriority.h"
+#include "Algorithms/HRN.h"
+#include "Algorithms/Custom.h"
+#include "Algorithms/PreemptiveCustom.h"
+

@@ -151,7 +151,7 @@ void insert_ready_queue(process* p, process insert, int mode){
             //Preemptive Priority
             for (int i=0; i<NoP_in_RQ; i++){
                 if (p[i].priority > insert.priority){
-                    //insert보다 priority value가가 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
+                    //insert보다 priority value가 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
                     idx = i;
                     break;
                 }
@@ -185,10 +185,91 @@ void insert_ready_queue(process* p, process insert, int mode){
                 // 선점 안하니까 len=0, 1일땐 그냥 뒤에 넣으면 됨
                 for (int i=1; i<NoP_in_RQ; i++){
                     if (p[i].priority > insert.priority){
-                        //insert보다 priority value가가 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
+                        //insert보다 priority value가 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
                         idx = i;
                         break;
                     }
+                }
+                for (int i=NoP_in_RQ; i>idx; i--){
+                    p[i] = p[i-1];
+                }
+            }
+            break;
+        
+        case 5:
+            //Non-Preemptive HRN
+            if (NoP_in_RQ > 1){
+                // 선점 안하니까 len=0, 1일땐 그냥 뒤에 넣으면 됨
+                // response ratio = (waiting time + cpu burst time)/cpu burst time
+                for (int i=1; i<NoP_in_RQ; i++){
+                    if ((p[i].waiting_time + p[i].CPU_burst_time)/p[i].CPU_burst_time\
+                        < (insert.waiting_time + insert.CPU_burst_time)/insert.CPU_burst_time)
+                    {
+                        //insert보다 reponse ratio가 작아지는 p의 위치를 idx설정하여 그곳에 insert 수행
+                        idx = i;
+                        break;
+                    }
+                }
+                for (int i=NoP_in_RQ; i>idx; i--){
+                    p[i] = p[i-1];
+                }
+            }
+            break;
+
+        case 6:
+            //Non-preemptive Custom. first: longest I/O burst, second: shortest cpu burst
+            if (NoP_in_RQ > 1){
+                // 선점 안하니까 len=0, 1일땐 그냥 뒤에 넣으면 됨
+                for (int i=1; i<NoP_in_RQ; i++){
+                    if (DEBUG_MODE) printf("%d\t%d\n", p[i].CPU_burst_time, insert.CPU_burst_time);
+                    if (p[i].IO_request_time >= 0){
+                        if (p[i].IO_burst_time < insert.IO_burst_time){
+                            //insert보다 burst time이 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
+                            idx = i;
+                            break;
+                        }
+                        else if ((p[i].IO_burst_time == insert.IO_burst_time) \
+                                & (p[i].CPU_burst_time > insert.CPU_burst_time)){
+                                idx = i;
+                                break;
+                            }
+                    }
+                    else{
+                        // if p[i]가 I/O동작을 수행하지 않는다면,
+                        idx = i;
+                        break;
+                    }
+                    
+                }
+                for (int i=NoP_in_RQ; i>idx; i--){
+                    p[i] = p[i-1];
+                }
+            }
+            break;
+
+        case 7:
+            //Preemptive Custom. first: longest I/O burst, second: shortest cpu burst
+            if (NoP_in_RQ > 1){
+                for (int i=0; i<NoP_in_RQ; i++){
+                    if (DEBUG_MODE) printf("%d\t%d\n", p[i].CPU_burst_time, insert.CPU_burst_time);
+                    if (p[i].IO_request_time >= 0){
+                        if (p[i].IO_burst_time < insert.IO_burst_time){
+                            //insert보다 burst time이 커지는 p의 위치를 idx설정하여 그곳에 insert 수행
+                            idx = i;
+                            break;
+                        }
+                        else if ((p[i].IO_burst_time == insert.IO_burst_time) \
+                                & (p[i].CPU_burst_time > insert.CPU_burst_time)){
+                                idx = i;
+                                break;
+                            }
+                    }
+                    else{
+                        // if p[i]가 I/O동작을 수행하지 않는다면,
+                        idx = i;
+                        break;
+                    }
+                    
                 }
                 for (int i=NoP_in_RQ; i>idx; i--){
                     p[i] = p[i-1];
