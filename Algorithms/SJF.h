@@ -36,10 +36,7 @@ evaluation_result SJF(process *p, int len)
 
 	printf("-------------------------------------------------------------------------------------\n");
 	printf("\n\t[Non-preemptive SJF Scheduling Algorithm]\n\n");
-	for (int i=0; i<len; i++){
-        printf("[process %d]: (arrival time: %d /cpu burst: %d /IO burst %d /IO request %d /priority: %d)\n", \
-            job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].IO_burst_time, job_queue[i].IO_request_time, job_queue[i].priority);
-    }
+	print_process_status(job_queue, len);
 	job_queue = SORT_by_arrival(job_queue, len);
 	
 	while(1){
@@ -67,7 +64,14 @@ evaluation_result SJF(process *p, int len)
 			if (wait_queue[0].IO_burst_time == 0){
 				// I/O 끝나서 ready queue로 복귀
 				// printf("pop from wait queue\n");
-				wait_queue[0].IO_request_time = -999; 
+				wait_queue[0].IO_occur_left--;
+				if (wait_queue[0].IO_occur_left > 0){
+					wait_queue[0].IO_burst_time = (rand()%10)+1;
+					wait_queue[0].IO_request_time = (rand()%wait_queue[0].CPU_burst_time); // cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
+				}
+				else {
+					wait_queue[0].IO_request_time = -999; 
+				}
 				insert_ready_queue(ready_queue, pop_from_wait_queue(wait_queue, 0), 3);
 
 				if (NoP_in_WQ > 0){

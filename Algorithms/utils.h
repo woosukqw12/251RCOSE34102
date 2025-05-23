@@ -98,7 +98,12 @@ process* SORT_by_arrival_and_priority(process *p, int len){
 	return p;
 }
 
-
+void print_process_status(process *job_queue, int len){
+	for (int i=0; i<len; i++){
+        printf("[process %d]: (arrival time: %d/cpu burst: %d /IO burst %d /IO request %d / IO_occur_left %d/priority: %d)\n", \
+            job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].IO_burst_time, job_queue[i].IO_request_time, job_queue[i].IO_occur_left, job_queue[i].priority);
+    }
+}
 
 void print_cpu_gantt_chart(char* gantt_record, int len, int total_terminated_time){
 	printf("\ncpu gantt chart:\t");

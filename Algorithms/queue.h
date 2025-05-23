@@ -24,12 +24,14 @@ process* Create_Process(void){
         process_[i].arrival_time = (rand()%10);
         process_[i].CPU_burst_time = (rand()%20)+1;
         process_[i].IO_burst_time = (rand()%10)+1;
-        if ( (rand()%100) < 40 ){
-            process_[i].IO_request_time = (rand()%process_[i].CPU_burst_time); // cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
-        }
-        else{
-            process_[i].IO_request_time = -1;
-        }
+        process_[i].IO_occur_left = rand()%3+1; //IO발생횟수 1~3회 랜덤
+        process_[i].IO_request_time = (rand()%(process_[i].CPU_burst_time-1) + 1); //요청 시점 랜덤
+        // if ( (rand()%100) < 60 ){
+        //     process_[i].IO_request_time = (rand()%(process_[i].CPU_burst_time-1) + 1); // cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
+        // }
+        // else{
+        //     process_[i].IO_request_time = -1;
+        // }
         process_[i].priority = (rand()%10)+1;
         process_[i].waiting_time = 0;
         process_[i].turnaround_time = 0;

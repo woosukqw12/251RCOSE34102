@@ -7,6 +7,7 @@ typedef struct{
     int CPU_burst_time;
     int IO_burst_time;
     int IO_request_time;
+    int IO_occur_left;
     int priority;
 
     int terminated_time;
@@ -14,13 +15,6 @@ typedef struct{
     int turnaround_time;
     int response_time;
 } process;
-
-typedef struct {
-    int PID;
-    int start;
-    int end;
-} time_stamp;
-
 
 typedef struct {
     int algorithm_idx;
