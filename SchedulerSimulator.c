@@ -3,14 +3,12 @@
 #include <time.h>  
 #include "Algorithms.h"
 
-
-#define NUMofAlgorithms 9
-
+#define NUMofAlgorithms 10
 
 //global assign 
 
 char *algorithms[NUMofAlgorithms] = {"FCFS", "Non-preempitve SJF", "Non-preempitve Priority", "RR", \
-    "Preemptive SJF", "Preemptive Priority", "HRN", "Non-preempitve Custom", "preempitve Custom"};
+    "Preemptive SJF", "Preemptive Priority", "HRN", "Non-preempitve Custom", "preempitve Custom", "lottery"};
 evaluation_result* result_array;
 //function assign
 // void Schedule(void);
@@ -26,6 +24,7 @@ void Schedule(void){
     process* p7 = copy_origin_process(origin);
     process* p8 = copy_origin_process(origin);
     process* p9 = copy_origin_process(origin);
+    process* p10 = copy_origin_process(origin);
     
     result_array[0] = FCFS(p1, NUM);
     result_array[1] = SJF(p2, NUM);
@@ -36,6 +35,7 @@ void Schedule(void){
     result_array[6] = HRN(p7, NUM);
     result_array[7] = Custom(p8, NUM);
     result_array[8] = PreemptiveCustom(p9, NUM);
+    result_array[9] = lottery(p10, NUM);
 }
 
 void eval(void){

@@ -14,6 +14,8 @@ typedef struct{
     int waiting_time;
     int turnaround_time;
     int response_time;
+
+    int ticket;
 } process;
 
 typedef struct {

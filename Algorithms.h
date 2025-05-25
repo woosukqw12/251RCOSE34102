@@ -11,4 +11,4 @@
 #include "Algorithms/HRN.h"
 #include "Algorithms/Custom.h"
 #include "Algorithms/PreemptiveCustom.h"
-
+#include "Algorithms/lottery.h"

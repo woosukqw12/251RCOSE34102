@@ -278,6 +278,25 @@ void insert_ready_queue(process* p, process insert, int mode){
                 }
             }
             break;
+        case 8:
+            //Non-Preemptive HRN
+            if (NoP_in_RQ > 1){
+                // 선점 안하니까 len=0, 1일땐 그냥 뒤에 넣으면 됨
+                // response ratio = (waiting time + cpu burst time)/cpu burst time
+                for (int i=1; i<NoP_in_RQ; i++){
+                    if ((p[i].waiting_time + p[i].CPU_burst_time)/p[i].CPU_burst_time\
+                        < (insert.waiting_time + insert.CPU_burst_time)/insert.CPU_burst_time)
+                    {
+                        //insert보다 reponse ratio가 작아지는 p의 위치를 idx설정하여 그곳에 insert 수행
+                        idx = i;
+                        break;
+                    }
+                }
+                for (int i=NoP_in_RQ; i>idx; i--){
+                    p[i] = p[i-1];
+                }
+            }
+            break;
 
         default:
             break;
@@ -289,6 +308,31 @@ void insert_ready_queue(process* p, process insert, int mode){
     }
     else{
         printf("ERROR: ready queue is already full!!\n");
+    }
+}
+void lottery_drawing(process* p){
+    //Non-preemptive lottery
+    if (NoP_in_RQ > 0){
+        int idx=0;
+        int tatal_ticket = 0;
+        int cur_ticket_sum= 0;
+        for (int i=0; i<NoP_in_RQ; i++){
+            tatal_ticket = tatal_ticket + p[i].ticket;
+        }
+        int win_ticket = (rand()%tatal_ticket)+1;
+        for (int i=0; i<NoP_in_RQ; i++){
+            cur_ticket_sum = cur_ticket_sum + p[i].ticket;
+            if (cur_ticket_sum >= win_ticket){
+                idx = i;
+                printf("drawing ticket number is %d and p%d!\n", win_ticket, p[idx].PID);
+                break;
+            }
+        }
+        if (idx != 0){
+            process tmp = p[0];
+            p[0] = p[idx];
+            p[idx] = p[0];
+        }
     }
 }
 void print_ready_queue(process* p){
