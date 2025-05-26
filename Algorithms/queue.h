@@ -5,7 +5,7 @@
 #include <time.h>  
 #include "process.h"
 
-#define NUM 5 //NumOfProcesses
+#define NUM 10 //NumOfProcesses
 #define DEBUG_MODE 0
 
 process* Create_Process(void);
@@ -25,7 +25,7 @@ process* Create_Process(void){
         process_[i].CPU_burst_time = (rand()%20)+1;
         process_[i].IO_burst_time = (rand()%10)+1;
         process_[i].IO_occur_left = rand()%3+1; //IO발생횟수 1~3회 랜덤
-        process_[i].IO_request_time = (rand()%(process_[i].CPU_burst_time-1) + 1); //요청 시점 랜덤
+        process_[i].IO_request_time = (rand()%(process_[i].CPU_burst_time) + 1); //요청 시점 랜덤
         // if ( (rand()%100) < 60 ){
         //     process_[i].IO_request_time = (rand()%(process_[i].CPU_burst_time-1) + 1); // cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
         // }
@@ -324,14 +324,14 @@ void lottery_drawing(process* p){
             cur_ticket_sum = cur_ticket_sum + p[i].ticket;
             if (cur_ticket_sum >= win_ticket){
                 idx = i;
-                printf("drawing ticket number is %d and p%d!\n", win_ticket, p[idx].PID);
+                printf("p%d\t",  p[idx].PID);
                 break;
             }
         }
         if (idx != 0){
             process tmp = p[0];
             p[0] = p[idx];
-            p[idx] = p[0];
+            p[idx] = tmp;
         }
     }
 }

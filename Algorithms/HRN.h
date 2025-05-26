@@ -51,7 +51,7 @@ evaluation_result HRN(process *p, int len)
 			if (ready_queue[0].IO_request_time==0){
 				if (DEBUG_MODE) printf("IO request. PID:%d, IO burst:%d\n", ready_queue[0].PID, ready_queue[0].IO_burst_time);
 				// IO작업한 시간만큼 waiting time에서 빼주기 위해 arr에 추가
-				IO_burst_time_record[ready_queue[0].PID] = ready_queue[0].IO_burst_time;
+				IO_burst_time_record[ready_queue[0].PID] += ready_queue[0].IO_burst_time;
 				//response ratio 계산을 위한  waiting time of p를 계산. 현재 시간 - 도착시간 - 지금까지 cpu사용한 시간 
 				ready_queue[0].waiting_time = TotalTime - ready_queue[0].arrival_time + ready_queue[0].CPU_burst_time - cpu_burst_time_record[ready_queue[0].PID];
 				insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, 0), 0);
@@ -66,7 +66,13 @@ evaluation_result HRN(process *p, int len)
 				wait_queue[0].IO_occur_left--;
 				if (wait_queue[0].IO_occur_left > 0){
 					wait_queue[0].IO_burst_time = (rand()%10)+1;
-					wait_queue[0].IO_request_time = (rand()%wait_queue[0].CPU_burst_time); // cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
+					if (wait_queue[0].CPU_burst_time > 0) {
+						// cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
+						wait_queue[0].IO_request_time = rand() % wait_queue[0].CPU_burst_time;
+					} 
+					else {
+						wait_queue[0].IO_request_time = -999; // I/O 비활성화
+					} 
 				}
 				else {
 					wait_queue[0].IO_request_time = -999; 
