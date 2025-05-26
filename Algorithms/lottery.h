@@ -39,7 +39,7 @@ evaluation_result lottery(process *p, int len)
 	printf("-------------------------------------------------------------------------------------\n");
 	printf("\n\t[lottery Scheduling Algorithm]\n\n");
 	print_process_status(job_queue, len);
-	printf("\ndrawing process PID: ");
+	printf("\ndrawed process PID: ");
 	job_queue = SORT_by_arrival(job_queue, len);
 	
 	while(1){

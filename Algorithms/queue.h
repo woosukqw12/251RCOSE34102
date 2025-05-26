@@ -5,7 +5,7 @@
 #include <time.h>  
 #include "process.h"
 
-#define NUM 10 //NumOfProcesses
+#define NUM 7 //NumOfProcesses
 #define DEBUG_MODE 0
 
 process* Create_Process(void);

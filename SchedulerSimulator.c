@@ -8,7 +8,7 @@
 //global assign 
 
 char *algorithms[NUMofAlgorithms] = {"FCFS", "Non-preemptive SJF", "Non-preemptive Priority", "RR", \
-    "Preemptive SJF", "Preemptive Priority", "HRN", "Non-preempitve Custom", "preemptive Custom", "lottery"};
+    "Preemptive SJF", "Preemptive Priority", "HRN", "Non-preemptive Custom", "preemptive Custom", "lottery"};
 evaluation_result* result_array;
 //function assign
 // void Schedule(void);
