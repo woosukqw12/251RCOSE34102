@@ -45,7 +45,6 @@ evaluation_result HRN(process *p, int len)
 			}
 		}
 
-		// 1. I/O request 판단	2. I/O burst 판단 3. ready queue에서 cpu burst판단
 		//I/O request 판단
 		if (NoP_in_RQ > 0) {
 			if (ready_queue[0].IO_request_time==0){
@@ -57,6 +56,7 @@ evaluation_result HRN(process *p, int len)
 				insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, 0), 0);
 			}
 		}
+
 		//I/O processing 1: busrted process is poped from wait queue and inserted in ready queue
 		//I/O processing 2: decreasing IO_burst_time for first waiting process
 		if (NoP_in_WQ > 0){
@@ -95,6 +95,18 @@ evaluation_result HRN(process *p, int len)
 			
 		}
 		else IO_record[TotalTime] = 'X';
+
+		// 1. I/O burst 판단 2.I/O request 판단  3. ready queue에서 cpu burst판단
+		//I/O request 판단
+		if (NoP_in_RQ > 0) {
+			for (int i=0; i<NoP_in_RQ; i++){
+				if (ready_queue[i].IO_request_time==0){
+					IO_burst_time_record[ready_queue[i].PID] += ready_queue[i].IO_burst_time;
+					insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, i), 0);
+				}
+			}
+		}
+		
 		if (DEBUG_MODE) print_ready_queue(ready_queue);
 		//CPU processing
 		if (NoP_in_RQ > 0) {

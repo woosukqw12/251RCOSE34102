@@ -5,7 +5,7 @@
 #include <time.h>  
 #include "process.h"
 
-#define NUM 7 //NumOfProcesses
+#define NUM 5 //NumOfProcesses
 #define DEBUG_MODE 0
 
 process* Create_Process(void);
@@ -340,7 +340,7 @@ void lottery_drawing(process* p){
 }
 void print_ready_queue(process* p){
     printf("ready queue[%d]:\t", NoP_in_RQ);
-    for (int i=0; i<NoP_in_RQ; i++) printf("%d ", p[i].PID);
+    for (int i=0; i<NoP_in_RQ; i++) printf("%d(%d) ", p[i].PID, p[i].IO_request_time);
     printf("\n");
 }
 
