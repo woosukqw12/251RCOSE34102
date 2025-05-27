@@ -22,11 +22,23 @@ process* SORT_by_arrival(process *p, int len){
 	return p;
 }
 
+// void print_process_status(process *job_queue, int len){
+// 	for (int i=0; i<len; i++){
+//         printf("[process %d]: (arrival time: %d/cpu burst: %d /IO burst %d /IO request %d / IO_occur_total %d/priority: %d)\n", \
+//             job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].IO_burst_time, job_queue[i].IO_request_time, job_queue[i].IO_occur_total, job_queue[i].priority);
+//     }
+// }
+
 void print_process_status(process *job_queue, int len){
 	for (int i=0; i<len; i++){
-        printf("[process %d]: (arrival time: %d/cpu burst: %d /IO burst %d /IO request %d / IO_occur_left %d/priority: %d)\n", \
-            job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].IO_burst_time, job_queue[i].IO_request_time, job_queue[i].IO_occur_left, job_queue[i].priority);
+        printf("[process %d]: (arrival time: %d/cpu burst: %d /priority: %d/ IO_occur_total %d/ ", \
+            job_queue[i].PID, job_queue[i].arrival_time, job_queue[i].CPU_burst_time, job_queue[i].priority, job_queue[i].IO_occur_total);
+		for (int j=0; j<job_queue[i].IO_occur_total; j++){
+			printf("%d번째 IO burst: %d, IO request: %d/ ", j, job_queue[i].IO_burst_time[j], job_queue[i].IO_request_time[j]);
+		}
+		printf("\n");
     }
+	
 }
 
 void print_cpu_gantt_chart(char* gantt_record, int len, int total_terminated_time){

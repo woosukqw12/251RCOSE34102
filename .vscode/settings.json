@@ -6,6 +6,7 @@
         "preemptivepriority.h": "c",
         "utils.h": "c",
         "queue.h": "c",
-        "preemptivecustom.h": "c"
+        "preemptivecustom.h": "c",
+        "sjf.h": "c"
     }
 }

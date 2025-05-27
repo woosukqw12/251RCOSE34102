@@ -5,9 +5,10 @@ typedef struct{
     int PID;
     int arrival_time;
     int CPU_burst_time;
-    int IO_burst_time;
-    int IO_request_time;
-    int IO_occur_left;
+    int *IO_burst_time;
+    int *IO_request_time;
+    int IO_occur_total;
+    int IO_occur_cur;
     int priority;
 
     int terminated_time;

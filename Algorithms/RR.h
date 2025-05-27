@@ -49,56 +49,46 @@ evaluation_result RR(process *p, int len)
 
 		//I/O request 판단
 		if (NoP_in_RQ > 0) {
-			if (ready_queue[0].IO_request_time==0){
-				if (DEBUG_MODE) printf("IO request. PID:%d, IO burst:%d\n", ready_queue[0].PID, ready_queue[0].IO_burst_time);
+			if (ready_queue[0].IO_request_time[ready_queue[0].IO_occur_cur]==0){
+				if (DEBUG_MODE) printf("IO request. PID:%d, IO burst:%d\n", ready_queue[0].PID, ready_queue[0].IO_burst_time[ready_queue[0].IO_occur_cur]);
 				// IO작업한 시간만큼 waiting time에서 빼주기 위해 arr에 추가
-				IO_burst_time_record[ready_queue[0].PID] += ready_queue[0].IO_burst_time;
+				IO_burst_time_record[ready_queue[0].PID] += ready_queue[0].IO_burst_time[ready_queue[0].IO_occur_cur];
 				insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, 0), 0);
 				runningTime = 0;
 			}
-			for (int i=1; i<NoP_in_RQ; i++){
-				if (ready_queue[i].IO_request_time==0){
-					IO_burst_time_record[ready_queue[i].PID] += ready_queue[i].IO_burst_time;
-					insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, i), 0);
-				}
-			}
+			// for (int i=1; i<NoP_in_RQ; i++){
+			// 	if (ready_queue[i].IO_request_time==0){
+			// 		IO_burst_time_record[ready_queue[i].PID] += ready_queue[i].IO_burst_time;
+			// 		insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, i), 0);
+			// 	}
+			// }
 		}
 
 		//I/O processing 1: busrted process is poped from wait queue and inserted in ready queue
 		//I/O processing 2: decreasing IO_burst_time for first waiting process
 		if (NoP_in_WQ > 0){
-			if (wait_queue[0].IO_burst_time == 0){
+			if (wait_queue[0].IO_burst_time[wait_queue[0].IO_occur_cur] == 0){
 				// I/O 끝나서 ready queue로 복귀
 				// printf("pop from wait queue\n");
-				wait_queue[0].IO_occur_left--;
-				if (wait_queue[0].IO_occur_left > 0){
-					wait_queue[0].IO_burst_time = (rand()%10)+1;
-					if (wait_queue[0].CPU_burst_time > 0) {
-						// cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
-						wait_queue[0].IO_request_time = (rand()%wait_queue[0].CPU_burst_time);
-						// printf("%d's IO burst: %d, IO req: %d\n", wait_queue[0].PID, wait_queue[0].IO_burst_time, wait_queue[0].IO_request_time);
-					} 
-					else {
-						wait_queue[0].IO_request_time = -999; // I/O 비활성화
-					} 
-				}
-				else {
-					wait_queue[0].IO_request_time = -999; 
+				wait_queue[0].IO_occur_cur++;
+				if (wait_queue[0].IO_occur_cur == wait_queue[0].IO_occur_total){
+					wait_queue[0].IO_occur_cur = 0;
+					wait_queue[0].IO_request_time[0] = -999;
 				}
 				insert_ready_queue(ready_queue, pop_from_wait_queue(wait_queue, 0), 0);
 
 				if (NoP_in_WQ > 0){
 					sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
 					// wait queue에 2개 이상이 있고, 처음p가 끝나서 나가면 그 다음p의 IO시간을 감소시켜야 함.
-					wait_queue[0].IO_burst_time--;
-					if (DEBUG_MODE) printf("%d(%d)->(%d)\n",wait_queue[0].PID, wait_queue[0].IO_burst_time+1, wait_queue[0].IO_burst_time);
+					wait_queue[0].IO_burst_time[wait_queue[0].IO_occur_cur]--;
+					if (DEBUG_MODE) printf("%d(%d)->(%d)\n",wait_queue[0].PID, wait_queue[0].IO_burst_time[wait_queue[0].IO_occur_cur]+1, wait_queue[0].IO_burst_time[wait_queue[0].IO_occur_cur]);
 				} 
 				else IO_record[TotalTime] = 'X'; 
 			}
 			else{
 				// printf("decreasing IO_burst_time PID: %d, IO busrt: %d\n", wait_queue[0].PID, wait_queue[0].IO_burst_time);
 				sprintf(&IO_record[TotalTime], "%d", wait_queue[0].PID); 
-				wait_queue[0].IO_burst_time--;
+				wait_queue[0].IO_burst_time[wait_queue[0].IO_occur_cur]--;
 			}
 			
 		}
@@ -108,8 +98,8 @@ evaluation_result RR(process *p, int len)
 		//I/O request 판단
 		if (NoP_in_RQ > 0) {
 			for (int i=0; i<NoP_in_RQ; i++){
-				if (ready_queue[i].IO_request_time==0){
-					IO_burst_time_record[ready_queue[i].PID] += ready_queue[i].IO_burst_time;
+				if (ready_queue[i].IO_request_time[ready_queue[i].IO_occur_cur]==0){
+					IO_burst_time_record[ready_queue[i].PID] += ready_queue[i].IO_burst_time[ready_queue[i].IO_occur_cur];
 					insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, i), 0);
 				}
 			}
@@ -120,7 +110,7 @@ evaluation_result RR(process *p, int len)
 		//CPU processing
 		if (NoP_in_RQ > 0) {
 			ready_queue[0].CPU_burst_time--; //FCFS
-			ready_queue[0].IO_request_time--;
+			ready_queue[0].IO_request_time[ready_queue[0].IO_occur_cur]--;
 			// printf("PID:%d, remaining_burst: %d, waiting time: %d\n", ready_queue[0].PID, ready_queue[0].CPU_burst_time,ready_queue[0].waiting_time);
 			
 			runningTime++;

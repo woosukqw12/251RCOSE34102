@@ -25,7 +25,7 @@ void Schedule(void){
     process* p8 = copy_origin_process(origin);
     process* p9 = copy_origin_process(origin);
     process* p10 = copy_origin_process(origin);
-    
+    // print_process_status(origin, 5);
     result_array[0] = FCFS(p1, NUM);
     result_array[1] = SJF(p2, NUM);
     result_array[2] = Priority(p3, NUM);

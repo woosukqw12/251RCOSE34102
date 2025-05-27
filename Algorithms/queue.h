@@ -23,12 +23,25 @@ process* Create_Process(void){
         process_[i].PID = i;
         process_[i].arrival_time = (rand()%10);
         process_[i].CPU_burst_time = (rand()%20)+1;
-        process_[i].IO_burst_time = (rand()%10)+1;
-        process_[i].IO_occur_left = rand()%2+2; //IO발생횟수 2~3회 랜덤
-        if (process_[i].CPU_burst_time > 0)
-            process_[i].IO_request_time = (rand()%process_[i].CPU_burst_time); //요청 시점 랜덤
-        else 
-            process_[i].IO_request_time = -999;
+        
+        process_[i].IO_occur_total = rand()%2+2; //IO발생횟수 2~3회 랜덤
+        process_[i].IO_burst_time = malloc(process_[i].IO_occur_total * sizeof(int));
+        process_[i].IO_request_time = malloc(process_[i].IO_occur_total * sizeof(int));
+        int sum_cpu_burst=0;
+        for (int j=0; j<process_[i].IO_occur_total; j++){
+            process_[i].IO_burst_time[j] = (rand()%10)+1;
+            if (process_[i].CPU_burst_time > 0)
+                process_[i].IO_request_time[j] = (rand()%(process_[i].CPU_burst_time-sum_cpu_burst)); //요청 시점 랜덤
+            else 
+                process_[i].IO_request_time[j] = -999;
+            sum_cpu_burst = sum_cpu_burst + process_[i].IO_request_time[j];
+        }
+        process_[i].IO_occur_cur = 0;
+        // process_[i].IO_burst_time = (rand()%10)+1;
+        // if (process_[i].CPU_burst_time > 0)
+        //     process_[i].IO_request_time = (rand()%process_[i].CPU_burst_time); //요청 시점 랜덤
+        // else 
+        //     process_[i].IO_request_time = -999;
         // if ( (rand()%100) < 60 ){
         //     process_[i].IO_request_time = (rand()%(process_[i].CPU_burst_time-1) + 1); // cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
         // }
@@ -45,17 +58,24 @@ process* Create_Process(void){
     return process_;
 }
 
-void print_process(process *p, int len){
-    for (int i=0; i<len; i++){
-        printf("[process %d]: (arrival time: %d /cpu burst: %d /IO burst %d/priority: %d)\n", \
-            p[i].PID, p[i].arrival_time, p[i].CPU_burst_time, p[i].IO_burst_time, p[i].priority);
-    }
-}
+// void print_process(process *p, int len){
+//     for (int i=0; i<len; i++){
+//         printf("[process %d]: (arrival time: %d /cpu burst: %d /IO burst %d/priority: %d)\n", \
+//             p[i].PID, p[i].arrival_time, p[i].CPU_burst_time, p[i].IO_burst_time, p[i].priority);
+//     }
+// }
 
 process* copy_origin_process(process *p){
     process* copied_process = (process*) malloc(NUM * sizeof(process));
     for (int i=0; i<NUM; i++){
-        copied_process[i] = p[i];
+        copied_process[i] = p[i]; // 얕은 복사
+        // 깊은 복사 추가
+        copied_process[i].IO_burst_time = malloc(p[i].IO_occur_total * sizeof(int));
+        copied_process[i].IO_request_time = malloc(p[i].IO_occur_total * sizeof(int));
+        for (int j=0; j<p[i].IO_occur_total; j++){
+            copied_process[i].IO_burst_time[j] = p[i].IO_burst_time[j];
+            copied_process[i].IO_request_time[j] = p[i].IO_request_time[j];
+        }
     }
     return copied_process;
 }
@@ -340,7 +360,7 @@ void lottery_drawing(process* p){
 }
 void print_ready_queue(process* p){
     printf("ready queue[%d]:\t", NoP_in_RQ);
-    for (int i=0; i<NoP_in_RQ; i++) printf("%d(%d) ", p[i].PID, p[i].IO_request_time);
+    for (int i=0; i<NoP_in_RQ; i++) printf("%d ", p[i].PID);
     printf("\n");
 }
 
@@ -434,11 +454,11 @@ void insert_wait_queue(process* p, process insert, int mode){
     }
     
 }
-void print_wait_queue(process* p){
-    printf("wait  queue[%d]:\t", NoP_in_WQ);
-    for (int i=0; i<NoP_in_WQ; i++) printf("%d(%d) ", p[i].PID, p[i].IO_burst_time);
-    printf("\n");
-}
+// void print_wait_queue(process* p){
+//     printf("wait  queue[%d]:\t", NoP_in_WQ);
+//     for (int i=0; i<NoP_in_WQ; i++) printf("%d(%d) ", p[i].PID, p[i].IO_burst_time);
+//     printf("\n");
+// }
 
 //Terminated queue
 int NoP_in_TQ; //rear
