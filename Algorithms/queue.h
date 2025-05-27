@@ -24,7 +24,7 @@ process* Create_Process(void){
         process_[i].arrival_time = (rand()%10);
         process_[i].CPU_burst_time = (rand()%20)+1;
         process_[i].IO_burst_time = (rand()%10)+1;
-        process_[i].IO_occur_left = rand()%3+1; //IO발생횟수 1~3회 랜덤
+        process_[i].IO_occur_left = rand()%2+2; //IO발생횟수 2~3회 랜덤
         if (process_[i].CPU_burst_time > 1)
             process_[i].IO_request_time = (rand()%(process_[i].CPU_burst_time) + 1); //요청 시점 랜덤
         else 
