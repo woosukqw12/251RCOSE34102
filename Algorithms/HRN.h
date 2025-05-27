@@ -68,7 +68,7 @@ evaluation_result HRN(process *p, int len)
 					wait_queue[0].IO_burst_time = (rand()%10)+1;
 					if (wait_queue[0].CPU_burst_time > 0) {
 						// cpu burst내 범위에서 이 request_time만큼 process가 진행되면 IO_request를 받게 할 것임.
-						wait_queue[0].IO_request_time = rand() % wait_queue[0].CPU_burst_time;
+						wait_queue[0].IO_request_time = (rand()%wait_queue[0].CPU_burst_time);
 					} 
 					else {
 						wait_queue[0].IO_request_time = -999; // I/O 비활성화
