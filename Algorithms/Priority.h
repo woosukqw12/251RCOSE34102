@@ -10,8 +10,8 @@ evaluation_result Priority(process *p, int len)
 	int total_waiting_time = 0; // 총 대기 시간을 저장할 변수 선언 및 초기화
 	int total_turnaround_time = 0; // 총 턴어라운드 타임을 저장할 변수 선언 및 초기화
 
-	char gantt_record[20*len];
-	char IO_record[20*len];
+	char gantt_record[80*len];
+	char IO_record[80*len];
 
 	process* job_queue = init_job_queue(p);
 	process* ready_queue = init_ready_queue();

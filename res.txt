@@ -2,184 +2,184 @@
 
 	[FCFS Scheduling Algorithm]
 
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
 
-cpu gantt chart:	XX11122044333333XXXXXXXX22XXXX0000XXXXXXXXXXXXX1111133333333322XXX0XXXXXXX4XXXXXXXXX2222222222203
-I/O gantt chart:	X4444111111111122222222200000044444444441111111333222222222200000044444444333333333200033333333XX
+cpu gantt chart:	11122222222222233333333140000XXXXX33XX11XXXXXXXXXXXX00000XXX3XXXXXXXXXX2XXXXXXXX0XXX33333X4
+I/O gantt chart:	XXX111XX0000000002222222222333333311114442222222200033333333444444422220000000003333444444X
 
 Description for chart: Each number represents the PID of the process that was running during that time unit,
 						and also X represents the IDLE in that time unit.
 
-	Average Waiting Time     : 51.00
-	Average Turnaround Time  : 80.00
+	Average Waiting Time     : 43.80
+	Average Turnaround Time  : 70.20
 -------------------------------------------------------------------------------------
 
 	[Non-preemptive SJF Scheduling Algorithm]
 
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
 
-cpu gantt chart:	XX2201114433333322XX0000XXXXXXXXXXXXXXXXXXX333333333X22XXXX0XXXXXX11111XXX4XXXXXXXXX2222222222203
-I/O gantt chart:	X4444222222222000000111111111144444444443332222222222000000111111144444444333333333200033333333XX
+cpu gantt chart:	2222222222224111333333330000XXXXX1XXXXXX33XXXXXXXXX00000XXXXXX11XXXXXX3XXX2XXXXXXXX0XXXXX4XXX33333
+I/O gantt chart:	XXXXXXXX0000000002222222222444111333333322222222000444444411113333333322220000000004444443333XXXXX
 
 Description for chart: Each number represents the PID of the process that was running during that time unit,
 						and also X represents the IDLE in that time unit.
 
-	Average Waiting Time     : 54.80
-	Average Turnaround Time  : 83.80
+	Average Waiting Time     : 51.40
+	Average Turnaround Time  : 77.80
 -------------------------------------------------------------------------------------
 
 	[Non-preemptive Priority Scheduling Algorithm]
 
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
 
-cpu gantt chart:	XX2201114433333322XX0000XXXXXXXXXXXXXXXXXXX333333333X22XXXX0XXXXXX11111XXX4XXXXXXXXX2222222222203
-I/O gantt chart:	X4444222222222000000111111111144444444443332222222222000000111111144444444333333333200033333333XX
+cpu gantt chart:	2222222222224111333333330000XXXXX1XXXXXX33XXXXXXXXX00000XXXXXX11XXXXXX3XXX2XXXXXXXX0XXXXX4XXX33333
+I/O gantt chart:	XXXXXXXX0000000002222222222444111333333322222222000444444411113333333322220000000004444443333XXXXX
 
 Description for chart: Each number represents the PID of the process that was running during that time unit,
 						and also X represents the IDLE in that time unit.
 
-	Average Waiting Time     : 54.80
-	Average Turnaround Time  : 83.80
+	Average Waiting Time     : 51.40
+	Average Turnaround Time  : 77.80
 -------------------------------------------------------------------------------------
 
 	[RR Scheduling Algorithm]
 
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
 
-cpu gantt chart:	XX11122044333333XXXXXXXX22XXXX0000XXXXXXXXXXXXX1111333313333322XXX0XXXXXXX4XXXXXXXXX2222022222223
-I/O gantt chart:	X4444111111111122222222200000044444444441111111333222222222200000044444444333333333200033333333XX
+cpu gantt chart:	111222233331222243333222200001133XXXXXXXXXXXXXXXXXX00000XXX3XXXXX4XXXXXXXXXXXXXXXX0XXX333332
+I/O gantt chart:	XXX111XX0000000001111444333333344444442222222222000333333334444442222222200000000033332222XX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 41.80
+	Average Turnaround Time  : 68.20
+-------------------------------------------------------------------------------------
+
+	[Preemptive SJF Scheduling Algorithm]
+
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
+
+cpu gantt chart:	1112221224211222222300003333333XXXXXXXXXXXX00000XX33XXXXXXXXXXXX4XXXXXXXX0XXXXXXX3XXX2XXX33333
+I/O gantt chart:	XXX111X1111000000000444222222222244444440003333333222222224444440000000003333333322223333XXXXX
+
+Description for chart: Each number represents the PID of the process that was running during that time unit,
+						and also X represents the IDLE in that time unit.
+
+	Average Waiting Time     : 35.60
+	Average Turnaround Time  : 62.00
+-------------------------------------------------------------------------------------
+
+	[Preemptive Priority Scheduling Algorithm]
+
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
+
+cpu gantt chart:	2222222224222111333333330000XXXXX1XXXXXXXXXXXXX33X00000XXXXXXX11XXXX4XXXXXXX3XXXXXXXX0XXX2XXX33333
+I/O gantt chart:	XXXXXXXX0000000004442222222222111444444433333330002222222211114444443333333300000000022223333XXXXX
 
 Description for chart: Each number represents the PID of the process that was running during that time unit,
 						and also X represents the IDLE in that time unit.
 
 	Average Waiting Time     : 50.60
-	Average Turnaround Time  : 79.60
--------------------------------------------------------------------------------------
-
-	[Preemptive SJF Scheduling Algorithm]
-
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
-
-cpu gantt chart:	XX11144033333322XXXXXXXXXXXXXXX000033333333311111X22XXXXXX4XXXXX0XXXXXXXXXXXXXXXXXX22X0XXXXXXX322222222222
-I/O gantt chart:	X4444111111111144444444440000003331111111222222222444444440000003333333332222222222000333333332XXXXXXXXXXX
-
-Description for chart: Each number represents the PID of the process that was running during that time unit,
-						and also X represents the IDLE in that time unit.
-
-	Average Waiting Time     : 47.20
-	Average Turnaround Time  : 76.20
--------------------------------------------------------------------------------------
-
-	[Preemptive Priority Scheduling Algorithm]
-
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
-
-cpu gantt chart:	XX20244111300003333322XXXXXXXXXXXXXXXXXXXXXXXX0XX333333333X22XXXXXX4XXXXXX111011XXXXXXX222222222223
-I/O gantt chart:	X4444000000222222222444444444411111111110000003332222222222444444441111111000333333333233333333XXXX
-
-Description for chart: Each number represents the PID of the process that was running during that time unit,
-						and also X represents the IDLE in that time unit.
-
-	Average Waiting Time     : 52.60
-	Average Turnaround Time  : 81.60
+	Average Turnaround Time  : 77.00
 -------------------------------------------------------------------------------------
 
 	[Non-preemptive HRN Scheduling Algorithm]
 
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
 
-cpu gantt chart:	XX2211104433333322XXXXXXXXXXXX0000XXXXXXXXX333333333X22XXXXX11111X0XXXXXXX4XXXXXXXXX2222222222203
-I/O gantt chart:	X4444222222222111111111100000044444444443332222222222111111100000044444444333333333200033333333XX
+cpu gantt chart:	2222222222221113333333340000XX1XXXXXX33XXXXXXXXXXXX0000011XXXXX3XXXXXXXXXX2XXXXXXXX0XXX33333X4
+I/O gantt chart:	XXXXXXXX0000000002222222222111333333344422222222000111133333333444444422220000000003333444444X
 
 Description for chart: Each number represents the PID of the process that was running during that time unit,
 						and also X represents the IDLE in that time unit.
 
-	Average Waiting Time     : 53.60
-	Average Turnaround Time  : 82.60
+	Average Waiting Time     : 49.80
+	Average Turnaround Time  : 76.20
 -------------------------------------------------------------------------------------
 
 	[Non-preemptive Custom Scheduling Algorithm]
 
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
 
-cpu gantt chart:	XX2211144333333220XXXXXXXXXXXXXXXXXXX333333333X22XXXX0000XXX11111XXX4XXXXXXXXX222222222220XX3XX0
-I/O gantt chart:	X4444222222222111111111144444444443332222222222000000111111144444444333333333200000033333333000X
+cpu gantt chart:	2222222222224333333331110000XXXXXXXXX33X1XXXXXXXXXX00000XXXXXXXXXX3XXX11XX2XXXXXXXX0XXXXX4XXX33333
+I/O gantt chart:	XXXXXXXX0000000002222222222444333333311122222222000444444433333333111122220000000004444443333XXXXX
 
 Description for chart: Each number represents the PID of the process that was running during that time unit,
 						and also X represents the IDLE in that time unit.
 
-	Average Waiting Time     : 50.40
+	Average Waiting Time     : 53.00
 	Average Turnaround Time  : 79.40
 -------------------------------------------------------------------------------------
 
 	[Preemptive Custom Scheduling Algorithm]
 
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
 
-cpu gantt chart:	XX2214433333312210XXXXXXXXX333333333X22XXXXXXXXXXXXXX0000XXXX4XXXXXXXXX22222222222111110XXXX3XX0
-I/O gantt chart:	X4444222222222444444444433322222222221111111111000000444444443333333332111111100000033333333000X
+cpu gantt chart:	222222333433333222222111000033XXXXXXXXXXXXXXXXX1XX00000XXX3XXXXX4XXXXXXXXXXX11XXXXXXX0XXX333332
+I/O gantt chart:	XXXXXXXX0000000004443333333444444422222222221110003333333344444422222222111100000000033332222XX
 
 Description for chart: Each number represents the PID of the process that was running during that time unit,
 						and also X represents the IDLE in that time unit.
 
-	Average Waiting Time     : 52.00
-	Average Turnaround Time  : 81.00
+	Average Waiting Time     : 52.80
+	Average Turnaround Time  : 79.20
 -------------------------------------------------------------------------------------
 
 	[lottery Scheduling Algorithm]
 
-[process 0]: (arrival time: 3/cpu burst: 7 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 6, IO request: 1/ 1번째 IO burst: 6, IO request: 4/ 2번째 IO burst: 3, IO request: 1/ 
-[process 1]: (arrival time: 2/cpu burst: 8 /priority: 7/ IO_occur_total 2/ 0번째 IO burst: 10, IO request: 3/ 1번째 IO burst: 7, IO request: 0/ 
-[process 2]: (arrival time: 2/cpu burst: 17 /priority: 4/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 2/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 1, IO request: 2/ 
-[process 3]: (arrival time: 7/cpu burst: 16 /priority: 7/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 6/ 1번째 IO burst: 9, IO request: 9/ 2번째 IO burst: 8, IO request: 0/ 
-[process 4]: (arrival time: 1/cpu burst: 3 /priority: 5/ IO_occur_total 3/ 0번째 IO burst: 4, IO request: 0/ 1번째 IO burst: 10, IO request: 2/ 2번째 IO burst: 8, IO request: 0/ 
+[process 0]: (arrival time: 7/cpu burst: 10 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 9, IO request: 0/ 1번째 IO burst: 3, IO request: 4/ 2번째 IO burst: 9, IO request: 5/ 
+[process 1]: (arrival time: 0/cpu burst: 6 /priority: 10/ IO_occur_total 2/ 0번째 IO burst: 3, IO request: 3/ 1번째 IO burst: 4, IO request: 1/ 
+[process 2]: (arrival time: 0/cpu burst: 13 /priority: 9/ IO_occur_total 3/ 0번째 IO burst: 10, IO request: 12/ 1번째 IO burst: 8, IO request: 0/ 2번째 IO burst: 4, IO request: 0/ 
+[process 3]: (arrival time: 6/cpu burst: 16 /priority: 10/ IO_occur_total 3/ 0번째 IO burst: 7, IO request: 8/ 1번째 IO burst: 8, IO request: 2/ 2번째 IO burst: 4, IO request: 1/ 
+[process 4]: (arrival time: 9/cpu burst: 2 /priority: 2/ IO_occur_total 3/ 0번째 IO burst: 3, IO request: 1/ 1번째 IO burst: 7, IO request: 0/ 2번째 IO burst: 6, IO request: 0/ 
 
-drawed process PID: p0	p1	p4	p3	p2	p0	p3	
+drawed process PID: p1	p4	p2	p3	p1	p0	p3	
 
-cpu gantt chart:	XX2201114433333322XX0000XXXXXXXXXXXXXXXXXXX333333333X22XXXX0XXXXXX11111XXX4XXXXXXXXX2222222222203
-I/O gantt chart:	X4444222222222000000111111111144444444443332222222222000000111111144444444333333333200033333333XX
+cpu gantt chart:	22222221114222223333333100003XXXXXXXXXXXXXXX11X00000XX33XXXXXXXXXXXX4XXXXXXXX0XXXXXXX3XXX2XXX33333
+I/O gantt chart:	XXXXXXXX0000000001114442222222222444444411110003333333222222224444440000000003333333322223333XXXXX
 
 Description for chart: Each number represents the PID of the process that was running during that time unit,
 						and also X represents the IDLE in that time unit.
 
-	Average Waiting Time     : 54.80
-	Average Turnaround Time  : 83.80
+	Average Waiting Time     : 45.40
+	Average Turnaround Time  : 71.80
 
 
 ======================================================================
@@ -191,87 +191,87 @@ Total 10 scheduling algorithms below
 1. 'FCFS'  2. 'Non-preemptive SJF'  3. 'Non-preemptive Priority'  4. 'RR'  5. 'Preemptive SJF'  6. 'Preemptive Priority'  
 7. 'HRN'  8. 'Non-preemptive Custom'  9. 'preemptive Custom'  10. 'lottery'  
 
-The shortest avg waiting time: [Preemptive SJF], 47.20.
-The shortest avg turnaround time: [Preemptive SJF], 76.20.
+The shortest avg waiting time: [Preemptive SJF], 35.60.
+The shortest avg turnaround time: [Preemptive SJF], 62.00.
 
 ----------------------------------------------------------------------
 Algorithm: [FCFS]
-	Average Waiting Time     : 51.00
-	Average Turnaround Time  : 80.00
-	Total running Time       : 97
-	IDLE_time                : 46
-	CPU utilization          : 52.58%
+	Average Waiting Time     : 43.80
+	Average Turnaround Time  : 70.20
+	Total running Time       : 91
+	IDLE_time                : 44
+	CPU utilization          : 51.65%
 
 ----------------------------------------------------------------------
 Algorithm: [Non-preemptive SJF]
-	Average Waiting Time     : 54.80
-	Average Turnaround Time  : 83.80
-	Total running Time       : 97
-	IDLE_time                : 46
-	CPU utilization          : 52.58%
+	Average Waiting Time     : 51.40
+	Average Turnaround Time  : 77.80
+	Total running Time       : 98
+	IDLE_time                : 51
+	CPU utilization          : 47.96%
 
 ----------------------------------------------------------------------
 Algorithm: [Non-preemptive Priority]
-	Average Waiting Time     : 54.80
-	Average Turnaround Time  : 83.80
-	Total running Time       : 97
-	IDLE_time                : 46
-	CPU utilization          : 52.58%
+	Average Waiting Time     : 51.40
+	Average Turnaround Time  : 77.80
+	Total running Time       : 98
+	IDLE_time                : 51
+	CPU utilization          : 47.96%
 
 ----------------------------------------------------------------------
 Algorithm: [RR]
-	Average Waiting Time     : 50.60
-	Average Turnaround Time  : 79.60
-	Total running Time       : 97
-	IDLE_time                : 46
-	CPU utilization          : 52.58%
+	Average Waiting Time     : 41.80
+	Average Turnaround Time  : 68.20
+	Total running Time       : 92
+	IDLE_time                : 45
+	CPU utilization          : 51.09%
 
 ----------------------------------------------------------------------
 Algorithm: [Preemptive SJF]
-	Average Waiting Time     : 47.20
-	Average Turnaround Time  : 76.20
-	Total running Time       : 106
-	IDLE_time                : 55
-	CPU utilization          : 48.11%
+	Average Waiting Time     : 35.60
+	Average Turnaround Time  : 62.00
+	Total running Time       : 94
+	IDLE_time                : 47
+	CPU utilization          : 50.00%
 
 ----------------------------------------------------------------------
 Algorithm: [Preemptive Priority]
-	Average Waiting Time     : 52.60
-	Average Turnaround Time  : 81.60
-	Total running Time       : 99
-	IDLE_time                : 48
-	CPU utilization          : 51.52%
+	Average Waiting Time     : 50.60
+	Average Turnaround Time  : 77.00
+	Total running Time       : 98
+	IDLE_time                : 51
+	CPU utilization          : 47.96%
 
 ----------------------------------------------------------------------
 Algorithm: [HRN]
-	Average Waiting Time     : 53.60
-	Average Turnaround Time  : 82.60
-	Total running Time       : 97
-	IDLE_time                : 46
-	CPU utilization          : 52.58%
+	Average Waiting Time     : 49.80
+	Average Turnaround Time  : 76.20
+	Total running Time       : 94
+	IDLE_time                : 47
+	CPU utilization          : 50.00%
 
 ----------------------------------------------------------------------
 Algorithm: [Non-preemptive Custom]
-	Average Waiting Time     : 50.40
+	Average Waiting Time     : 53.00
 	Average Turnaround Time  : 79.40
-	Total running Time       : 96
-	IDLE_time                : 45
-	CPU utilization          : 53.12%
+	Total running Time       : 98
+	IDLE_time                : 51
+	CPU utilization          : 47.96%
 
 ----------------------------------------------------------------------
 Algorithm: [preemptive Custom]
-	Average Waiting Time     : 52.00
-	Average Turnaround Time  : 81.00
-	Total running Time       : 96
-	IDLE_time                : 45
-	CPU utilization          : 53.12%
+	Average Waiting Time     : 52.80
+	Average Turnaround Time  : 79.20
+	Total running Time       : 95
+	IDLE_time                : 48
+	CPU utilization          : 49.47%
 
 ----------------------------------------------------------------------
 Algorithm: [lottery]
-	Average Waiting Time     : 54.80
-	Average Turnaround Time  : 83.80
-	Total running Time       : 97
-	IDLE_time                : 46
-	CPU utilization          : 52.58%
+	Average Waiting Time     : 45.40
+	Average Turnaround Time  : 71.80
+	Total running Time       : 98
+	IDLE_time                : 51
+	CPU utilization          : 47.96%
 
 ----------------------------------------------------------------------

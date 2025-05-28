@@ -11,8 +11,8 @@ evaluation_result lottery(process *p, int len)
 	int total_waiting_time = 0; // 총 대기 시간을 저장할 변수 선언 및 초기화
 	int total_turnaround_time = 0; // 총 턴어라운드 타임을 저장할 변수 선언 및 초기화
 
-	char gantt_record[20*len];
-	char IO_record[20*len];
+	char gantt_record[80*len];
+	char IO_record[80*len];
 
 	process* job_queue = init_job_queue(p);
 	process* ready_queue = init_ready_queue();
@@ -100,6 +100,7 @@ evaluation_result lottery(process *p, int len)
 				if (ready_queue[i].IO_request_time[ready_queue[i].IO_occur_cur]==0){
 					IO_burst_time_record[ready_queue[i].PID] += ready_queue[i].IO_burst_time[ready_queue[i].IO_occur_cur];
 					insert_wait_queue(wait_queue, pop_from_ready_queue(ready_queue, i), 0);
+					lottery_drawing(ready_queue);
 				}
 			}
 		}
